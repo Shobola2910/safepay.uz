@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#111114">
+  <title>SafePay – Cards</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    /* ── Card Stack ── */
+    .card-stack-wrap {
+      position: relative;
+      height: 200px;
+      margin-bottom: 24px;
+    }
+    .pay-card {
+      position: absolute;
+      width: 100%;
+      height: 185px;
+      border-radius: 22px;
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      transition: transform 0.3s var(--ease), filter 0.3s;
+      overflow: hidden;
+    }
+    .pc-dark {
+      background: linear-gradient(135deg, #0a1628 0%, #162440 60%, #0d1e38 100%);
+      border: 1px solid rgba(0,174,239,0.3);
+    }
+    .pc-purple {
+      background: linear-gradient(135deg, #120820, #251540);
+      border: 1px solid rgba(144,64,255,0.25);
+    }
+    .pc-gold {
+      background: linear-gradient(135deg, #1a1200, #3d2e00, #231900);
+      border: 1px solid rgba(255,181,71,0.3);
+    }
+    .c1 { top: 0;   z-index: 3; transform: rotate(0deg); }
+    .c2 { top: 12px; z-index: 2; transform: rotate(2.5deg) scale(0.97); filter: brightness(0.65); }
+    .c3 { top: 20px; z-index: 1; transform: rotate(-1.5deg) scale(0.94); filter: brightness(0.4); }
+
+    .card-glow {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .cg-blue {
+      width: 160px; height: 160px;
+      top: -40px; right: -40px;
+      background: radial-gradient(circle, rgba(0,174,239,0.22) 0%, transparent 70%);
+    }
+    .cg-purple {
+      width: 140px; height: 140px;
+      bottom: -30px; left: -20px;
+      background: radial-gradient(circle, rgba(144,64,255,0.2) 0%, transparent 70%);
+    }
+    .cg-gold {
+      width: 140px; height: 140px;
+      bottom: -20px; right: 20px;
+      background: radial-gradient(circle, rgba(255,181,71,0.18) 0%, transparent 70%);
+    }
+
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .card-chip { font-size: 22px; }
+    .card-network { font-size: 24px; opacity: 0.7; }
+    .card-number {
+      font-family: var(--font-display);
+      font-size: 14px;
+      letter-spacing: 2.5px;
+      color: rgba(255,255,255,0.5);
+    }
+    .card-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+    .card-holder {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .card-expiry { font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 3px; }
+    .card-type { font-size: 10px; letter-spacing: 1px; opacity: 0.5; text-align: right; }
+
+    /* ── Card List ── */
+    .card-list-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 14px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: border-color var(--t-base);
+    }
+    .card-list-item:active { border-color: var(--border2); }
+    .card-thumb {
+      width: 46px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0;
+    }
+    .ct-dark   { background: linear-gradient(135deg, #0a1628, #162440); border: 1px solid rgba(0,174,239,0.2); }
+    .ct-purple { background: linear-gradient(135deg, #120820, #251540); border: 1px solid rgba(144,64,255,0.2); }
+    .ct-gold   { background: linear-gradient(135deg, #1a1200, #3d2e00); border: 1px solid rgba(255,181,71,0.2); }
+    .card-info { flex: 1; min-width: 0; }
+    .card-name { font-size: 13px; font-weight: 500; }
+    .card-assign-row {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 11px; margin-top: 3px;
+    }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+
+  <div class="status-bar">
+    <div class="status-time">09:41</div>
+    <div class="status-icons">
+      <span>▲▲▲</span>
+      <div class="status-battery"><div class="battery-fill"></div></div>
+    </div>
+  </div>
+
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <div class="top-bar-title">Cards</div>
+    </div>
+    <div class="top-bar-right">
+      <button class="btn btn-primary" style="font-size:12px;padding:8px 14px">+ Add Card</button>
+    </div>
+  </div>
+
+  <div class="screen-content">
+
+    <!-- Card Stack -->
+    <div class="card-stack-wrap animate-in">
+      <!-- Card 3 (back) -->
+      <div class="pay-card pc-gold c3">
+        <div class="card-glow cg-gold"></div>
+        <div class="card-top">
+          <div class="card-chip">⬛</div>
+          <div class="card-network">★</div>
+        </div>
+        <div class="card-number">•••• •••• •••• 4521</div>
+        <div class="card-bottom">
+          <div><div class="card-holder" style="color:rgba(255,181,71,0.8)">Chase Sapphire</div><div class="card-expiry">06/27</div></div>
+        </div>
+      </div>
+      <!-- Card 2 (mid) -->
+      <div class="pay-card pc-purple c2">
+        <div class="card-glow cg-purple"></div>
+        <div class="card-top">
+          <div class="card-chip">💠</div>
+          <div class="card-network" style="color:rgba(144,64,255,0.8)">AMEX</div>
+        </div>
+        <div class="card-number">•••• •••• •••• 8834</div>
+        <div class="card-bottom">
+          <div><div class="card-holder">Alex Karev</div><div class="card-expiry">11/26</div></div>
+        </div>
+      </div>
+      <!-- Card 1 (front) -->
+      <div class="pay-card pc-dark c1">
+        <div class="card-glow cg-blue"></div>
+        <div class="card-top">
+          <div class="card-chip">⬜</div>
+          <div class="card-network" style="color:var(--blue)">VISA</div>
+        </div>
+        <div class="card-number">•••• •••• •••• 2291</div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-holder">Alex Karev</div>
+            <div class="card-expiry">Expires 03/29</div>
+          </div>
+          <div class="card-type">VISA INFINITE<br><span style="color:rgba(0,174,239,0.5)">Primary</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tap hint -->
+    <div style="text-align:center;font-size:11px;color:var(--text4);margin-bottom:18px">Tap a card to view details</div>
+
+    <!-- Card List -->
+    <div class="section-title animate-in">All Cards</div>
+
+    <div class="card-list-item animate-in">
+      <div class="card-thumb ct-dark">💳</div>
+      <div class="card-info">
+        <div class="card-name">Visa Infinite •••• 2291</div>
+        <div class="card-assign-row" style="color:var(--blue)">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+          Smart Ring + Apple Watch
+        </div>
+      </div>
+      <div class="pill pill-green" style="font-size:10px">Primary</div>
+    </div>
+
+    <div class="card-list-item animate-in">
+      <div class="card-thumb ct-purple">💠</div>
+      <div class="card-info">
+        <div class="card-name">Amex Platinum •••• 8834</div>
+        <div class="card-assign-row" style="color:var(--purple)">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+          Galaxy Watch
+        </div>
+      </div>
+      <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px">Reassign</button>
+    </div>
+
+    <div class="card-list-item animate-in">
+      <div class="card-thumb ct-gold">⬛</div>
+      <div class="card-info">
+        <div class="card-name">Chase Sapphire •••• 4521</div>
+        <div class="card-assign-row" style="color:var(--text3)">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>
+          Unassigned
+        </div>
+      </div>
+      <button class="btn btn-primary" style="font-size:11px;padding:5px 10px">Assign</button>
+    </div>
+
+    <div class="glow-line"></div>
+
+    <div class="add-card animate-in">
+      <div class="add-card-icon">💳</div>
+      <div class="add-card-label">Add New Card</div>
+      <div class="add-card-sub">Visa, Mastercard, Amex supported</div>
+    </div>
+
+    <!-- Spending Limits -->
+    <div class="glow-line"></div>
+    <div class="section-title">Spending Limits</div>
+    <div class="card animate-in" style="display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:13px;font-weight:500">Per-device limits</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">Set max spend per wearable</div>
+      </div>
+      <button class="btn btn-ghost" style="font-size:12px">Configure</button>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-item" data-screen="dashboard" data-goto="dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span>Home</span><div class="nav-active-dot"></div>
+    </div>
+    <div class="nav-item" data-screen="devices" data-goto="devices">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+      <span>Devices</span><div class="nav-active-dot"></div>
+    </div>
+    <div class="nav-item active" data-screen="cards" data-goto="cards">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20"/></svg>
+      <span>Cards</span><div class="nav-active-dot"></div>
+    </div>
+    <div class="nav-item" data-screen="analytics" data-goto="analytics">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20l4-8 4 4 4-6 4 4"/><path d="M3 20h18"/></svg>
+      <span>Analytics</span><div class="nav-active-dot"></div>
+    </div>
+    <div class="nav-item" data-screen="settings" data-goto="settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+      <span>Settings</span><div class="nav-active-dot"></div>
+    </div>
+  </nav>
+
+</div>
+<script src="../js/nav.js"></script>
+</body>
+</html>

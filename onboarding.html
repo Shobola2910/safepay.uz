@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0A0A0A">
+  <title>SafePay – Get Started</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    body { overflow: hidden; }
+
+    .onboarding-screen {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse at 50% -10%, rgba(0,174,239,0.12) 0%, transparent 60%);
+    }
+
+    /* ── Slides area ── */
+    .slides-wrap {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      padding: 32px 32px 16px;
+      opacity: 0;
+      transform: translateX(30px);
+      transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
+      pointer-events: none;
+    }
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+    .slide.prev {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+
+    .slide-icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 36px;
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+      box-shadow:
+        0 0 40px var(--blue-glow),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+      animation: glowPulse 3s infinite;
+    }
+    .slide-icon::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,174,239,0.1), transparent 60%);
+    }
+
+    .slide-text { text-align: center; }
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+    .slide-desc {
+      color: var(--text2);
+      font-size: 15px;
+      line-height: 1.65;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    /* ── Progress dots ── */
+    .dots-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      padding: 8px 0 16px;
+    }
+    .progress-dot {
+      height: 6px;
+      border-radius: 3px;
+      background: var(--text4);
+      transition: all 0.3s var(--ease);
+      cursor: pointer;
+      width: 6px;
+    }
+    .progress-dot.active {
+      width: 22px;
+      background: var(--blue);
+      box-shadow: 0 0 8px var(--blue-glow);
+    }
+
+    /* ── Bottom sheet ── */
+    .bottom-sheet {
+      padding: 0 24px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Step 1 – just Continue */
+    #step-continue { display: flex; flex-direction: column; gap: 10px; }
+
+    /* Step 2 – biometrics + phone */
+    #step-auth { display: none; flex-direction: column; gap: 12px; }
+    .auth-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+    .auth-sub { font-size: 13px; color: var(--text3); }
+
+    .bio-row { display: flex; gap: 10px; }
+    .bio-btn {
+      flex: 1;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 14px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      color: var(--text2);
+      font-size: 13px;
+      font-weight: 500;
+      transition: all var(--t-base);
+    }
+    .bio-btn:active { border-color: var(--border2); background: var(--glass2); }
+    .bio-btn svg { width: 22px; height: 22px; color: var(--blue); }
+
+    /* Step 3 – OTP */
+    #step-otp { display: none; flex-direction: column; gap: 12px; }
+    .otp-row { display: flex; gap: 8px; justify-content: center; }
+    .otp-box {
+      width: 46px;
+      height: 56px;
+      border-radius: var(--r);
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      font-family: var(--font-display);
+      outline: none;
+      transition: border var(--t-fast), box-shadow var(--t-fast);
+      -webkit-appearance: none;
+      caret-color: var(--blue);
+    }
+    .otp-box:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px var(--blue-glow2);
+    }
+    .otp-resend {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text3);
+    }
+    .otp-resend span { color: var(--blue); }
+  </style>
+</head>
+<body>
+<div class="onboarding-screen">
+
+  <!-- Slides -->
+  <div class="slides-wrap">
+    <div class="slide active" id="slide-0">
+      <div class="slide-icon">💍</div>
+      <div class="slide-text">
+        <div class="slide-title">Pay with Your<br>Wearable</div>
+        <div class="slide-desc">Link your smart ring or smartwatch and make contactless payments anywhere, instantly.</div>
+      </div>
+    </div>
+    <div class="slide" id="slide-1">
+      <div class="slide-icon">🔐</div>
+      <div class="slide-text">
+        <div class="slide-title">Bank-Grade<br>Security</div>
+        <div class="slide-desc">Real-time fraud detection, instant freeze, and biometric authentication keep you safe 24/7.</div>
+      </div>
+    </div>
+    <div class="slide" id="slide-2">
+      <div class="slide-icon">📊</div>
+      <div class="slide-text">
+        <div class="slide-title">Full Spending<br>Control</div>
+        <div class="slide-desc">Visualize habits, set device limits, and manage multiple cards — all in one place.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dots -->
+  <div class="dots-row">
+    <div class="progress-dot active" onclick="goSlide(0)"></div>
+    <div class="progress-dot" onclick="goSlide(1)"></div>
+    <div class="progress-dot" onclick="goSlide(2)"></div>
+  </div>
+
+  <!-- Bottom Sheet -->
+  <div class="bottom-sheet">
+
+    <!-- Step 1: Continue -->
+    <div id="step-continue">
+      <button class="btn btn-primary btn-full" id="btn-continue" onclick="nextSlide()">Continue →</button>
+      <button class="btn btn-ghost btn-full" onclick="window.goto('dashboard')">Skip Intro</button>
+    </div>
+
+    <!-- Step 2: Auth -->
+    <div id="step-auth">
+      <div>
+        <div class="auth-title">Verify Identity</div>
+        <div class="auth-sub">Choose your preferred login method</div>
+      </div>
+      <div class="bio-row">
+        <div class="bio-btn" onclick="window.goto('dashboard')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2C8.13 2 5 5.13 5 9v1H3v3h1c.55 3.84 3.92 6.79 8 6.79S19.45 16.84 20 13h1v-3h-2V9c0-3.87-3.13-7-7-7z"/>
+            <circle cx="9" cy="11" r="1.2"/><circle cx="15" cy="11" r="1.2"/>
+            <path d="M9 15s1 1.5 3 1.5 3-1.5 3-1.5"/>
+          </svg>
+          Face ID
+        </div>
+        <div class="bio-btn" onclick="window.goto('dashboard')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2C9.24 2 7 4.24 7 7v1H5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V7c0-2.76-2.24-5-5-5z"/>
+            <circle cx="12" cy="14" r="2.5"/>
+          </svg>
+          Touch ID
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="input-group">
+        <label class="input-label">Phone Number</label>
+        <input class="input-field" type="tel" placeholder="+1 (555) 000-0000" value="+1 (555) 842-9120">
+      </div>
+      <button class="btn btn-primary btn-full" onclick="showOTP()">Send OTP Code</button>
+    </div>
+
+    <!-- Step 3: OTP -->
+    <div id="step-otp">
+      <div>
+        <div class="auth-title">Enter OTP</div>
+        <div class="auth-sub">Sent to +1 (555) ···· 9120</div>
+      </div>
+      <div class="otp-row">
+        <input class="otp-box" maxlength="1" inputmode="numeric" value="4">
+        <input class="otp-box" maxlength="1" inputmode="numeric" value="7">
+        <input class="otp-box" maxlength="1" inputmode="numeric" value="2">
+        <input class="otp-box" maxlength="1" inputmode="numeric">
+        <input class="otp-box" maxlength="1" inputmode="numeric">
+        <input class="otp-box" maxlength="1" inputmode="numeric">
+      </div>
+      <button class="btn btn-primary btn-full" onclick="window.goto('dashboard')">Verify & Enter App →</button>
+      <div class="otp-resend">Resend code in <span id="countdown">0:42</span></div>
+    </div>
+
+  </div>
+</div>
+
+<script src="../js/nav.js"></script>
+<script>
+  let current = 0;
+
+  function goSlide(n) {
+    const prev = document.getElementById('slide-' + current);
+    prev.classList.remove('active');
+    prev.classList.add('prev');
+    setTimeout(() => prev.classList.remove('prev'), 450);
+
+    current = n;
+    document.getElementById('slide-' + current).classList.add('active');
+
+    document.querySelectorAll('.progress-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+
+    const btnContinue = document.getElementById('btn-continue');
+    btnContinue.textContent = current === 2 ? 'Get Started →' : 'Continue →';
+  }
+
+  function nextSlide() {
+    if (current < 2) {
+      goSlide(current + 1);
+    } else {
+      document.getElementById('step-continue').style.display = 'none';
+      document.getElementById('step-auth').style.display = 'flex';
+    }
+  }
+
+  function showOTP() {
+    document.getElementById('step-auth').style.display = 'none';
+    document.getElementById('step-otp').style.display = 'flex';
+    startCountdown();
+    document.querySelector('.otp-box').focus();
+  }
+
+  // OTP auto-advance
+  document.querySelectorAll('.otp-box').forEach((box, i, all) => {
+    box.addEventListener('input', () => {
+      if (box.value && all[i + 1]) all[i + 1].focus();
+      if (!box.value && all[i - 1]) all[i - 1].focus();
+    });
+    box.addEventListener('keydown', e => {
+      if (e.key === 'Backspace' && !box.value && all[i - 1]) all[i - 1].focus();
+    });
+  });
+
+  function startCountdown() {
+    let sec = 42;
+    const el = document.getElementById('countdown');
+    const t = setInterval(() => {
+      sec--;
+      el.textContent = `0:${sec.toString().padStart(2,'0')}`;
+      if (sec <= 0) { clearInterval(t); el.style.color = 'var(--blue)'; el.textContent = 'Resend'; }
+    }, 1000);
+  }
+</script>
+</body>
+</html>
