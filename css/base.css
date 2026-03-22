@@ -1,0 +1,259 @@
+/* ============================================
+   SafePay – Base Styles
+   css/base.css
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+
+/* ── Reset ── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 14px;
+  height: 100%;
+  /* Prevent text size adjustment on orientation change */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.5;
+  height: 100%;
+  overflow: hidden;
+
+  /* Mobile phone frame simulation on desktop */
+  max-width: 390px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* On desktop — show phone frame */
+@media (min-width: 500px) {
+  html {
+    background: #050505;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  body {
+    height: 844px;
+    border-radius: 44px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.08),
+      0 40px 80px rgba(0,0,0,0.8),
+      0 0 60px rgba(0,174,239,0.05);
+  }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 0; }
+
+/* ── Typography ── */
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.5px;
+}
+
+a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+/* ── Mobile App Shell ── */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* ── Status Bar (fake iOS) ── */
+.status-bar {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  flex-shrink: 0;
+  background: var(--bg2);
+}
+.status-time {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+}
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text2);
+}
+.status-battery {
+  width: 25px;
+  height: 12px;
+  border: 1.5px solid var(--text2);
+  border-radius: 3px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 1.5px;
+}
+.status-battery::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 6px;
+  background: var(--text2);
+  border-radius: 0 2px 2px 0;
+}
+.battery-fill {
+  height: 100%;
+  width: 70%;
+  background: var(--green);
+  border-radius: 1px;
+}
+
+/* ── Top Bar ── */
+.top-bar {
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--page-x);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+.top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo-mark {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, var(--blue), var(--blue2));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 13px;
+  color: #fff;
+  box-shadow: var(--shadow-blue);
+}
+.top-bar-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+}
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Screen Content ── */
+.screen-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px var(--page-x) calc(var(--nav-h) + 20px);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.screen-content::-webkit-scrollbar { display: none; }
+
+/* ── Bottom Navigation ── */
+.bottom-nav {
+  height: var(--nav-h);
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 4px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 4px;
+  cursor: pointer;
+  transition: all var(--t-base) var(--ease);
+  border-radius: var(--r);
+  color: var(--text3);
+  position: relative;
+}
+.nav-item.active { color: var(--blue); }
+.nav-item svg {
+  width: 22px;
+  height: 22px;
+  transition: transform var(--t-base) var(--ease);
+}
+.nav-item.active svg { transform: scale(1.1); }
+.nav-item span {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.nav-active-dot {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--blue);
+  opacity: 0;
+  transition: opacity var(--t-base);
+}
+.nav-item.active .nav-active-dot { opacity: 1; }
+
+/* ── Animations ── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 12px var(--blue-glow); }
+  50%       { box-shadow: 0 0 28px rgba(0,174,239,0.35); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-in {
+  animation: fadeSlideUp 0.35s var(--ease) both;
+}
+.pulse   { animation: pulse 2s infinite; }
+.glow-anim { animation: glowPulse 3s infinite; }
