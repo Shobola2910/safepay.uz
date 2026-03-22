@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#111114">
+  <title>SafePay – Security</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .score-card {
+      background: linear-gradient(135deg, #0a1a0e, #0d2018);
+      border: 1px solid rgba(0,229,160,0.2);
+      border-radius: var(--r-lg);
+      padding: 20px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .score-ring-wrap {
+      width: 80px;
+      height: 80px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .score-ring-wrap svg {
+      width: 80px; height: 80px;
+      transform: rotate(-90deg);
+    }
+    .score-track { fill: none; stroke: rgba(0,229,160,0.12); stroke-width: 6; }
+    .score-fill  { fill: none; stroke: var(--green); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 220; stroke-dashoffset: 33; }
+    .score-center {
+      position: absolute;
+      inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+    .score-num  { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--green); }
+    .score-txt  { font-size: 9px; color: var(--text3); letter-spacing: 0.5px; text-transform: uppercase; }
+    .score-status { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--green); }
+    .score-desc { font-size: 12px; color: var(--text2); margin-top: 4px; line-height: 1.5; }
+
+    .alert-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 14px;
+      display: flex;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .alert-card.danger { background: rgba(255,61,107,0.04); border-color: rgba(255,61,107,0.25); }
+    .alert-card.info   { background: rgba(0,174,239,0.03); border-color: rgba(0,174,239,0.2); }
+    .alert-dot-wrap { padding-top: 4px; flex-shrink: 0; }
+    .alert-body { flex: 1; min-width: 0; }
+    .alert-title { font-size: 13px; font-weight: 600; }
+    .alert-desc  { font-size: 11px; color: var(--text3); margin-top: 3px; line-height: 1.55; }
+    .alert-time  { font-size: 10px; color: var(--text4); margin-top: 5px; }
+    .alert-actions { display: flex; gap: 6px; margin-top: 10px; }
+    .alert-actions .btn { font-size: 11px; padding: 6px 12px; }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .action-tile {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 16px;
+      cursor: pointer;
+      transition: all var(--t-base);
+      text-align: center;
+    }
+    .action-tile:active { transform: scale(0.96); border-color: var(--border2); }
+    .action-tile.danger:active { border-color: rgba(255,61,107,0.3); }
+    .action-emoji { font-size: 26px; margin-bottom: 8px; }
+    .action-name { font-size: 12px; font-weight: 600; }
+    .action-desc { font-size: 10px; color: var(--text3); margin-top: 3px; }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+
+  <div class="status-bar">
+    <div class="status-time">09:41</div>
+    <div class="status-icons">
+      <span>▲▲▲</span>
+      <div class="status-battery"><div class="battery-fill"></div></div>
+    </div>
+  </div>
+
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <div class="top-bar-title">Security Center</div>
+    </div>
+    <div class="top-bar-right">
+      <div class="pill pill-green" style="font-size:10px">
+        <div class="dot dot-green pulse"></div>Live
+      </div>
+    </div>
+  </div>
+
+  <div class="screen-content">
+
+    <!-- Security Score -->
+    <div class="score-card animate-in">
+      <div class="score-ring-wrap">
+        <svg viewBox="0 0 80 80">
+          <circle class="score-track" cx="40" cy="40" r="35"/>
+          <circle class="score-fill" cx="40" cy="40" r="35"/>
+        </svg>
+        <div class="score-center">
+          <div class="score-num">85</div>
+          <div class="score-txt">Score</div>
+        </div>
+      </div>
+      <div>
+        <div class="score-status">Good Standing</div>
+        <div class="score-desc">All devices within<br>normal parameters</div>
+        <button class="btn btn-ghost" style="font-size:11px;padding:6px 12px;margin-top:10px">Run Full Scan</button>
+      </div>
+    </div>
+
+    <!-- Alerts -->
+    <div class="page-header animate-in">
+      <div class="section-title" style="margin-bottom:0">Recent Alerts</div>
+      <div style="font-size:11px;color:var(--text3)">Last scan: 2 min ago</div>
+    </div>
+
+    <div class="alert-card danger animate-in">
+      <div class="alert-dot-wrap"><div class="dot dot-red pulse"></div></div>
+      <div class="alert-body">
+        <div class="alert-title">🚨 Suspicious Transaction</div>
+        <div class="alert-desc">$240 payment attempted at a foreign terminal (Singapore). Transaction blocked automatically.</div>
+        <div class="alert-time">Today at 03:14 AM · Smart Ring</div>
+        <div class="alert-actions">
+          <button class="btn btn-danger">Block Device</button>
+          <button class="btn btn-ghost">It was me</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert-card info animate-in">
+      <div class="alert-dot-wrap"><div class="dot dot-blue"></div></div>
+      <div class="alert-body">
+        <div class="alert-title">📍 New Device Location</div>
+        <div class="alert-desc">Apple Watch detected in a new area: Downtown SF. Normal travel pattern confirmed.</div>
+        <div class="alert-time">Yesterday at 11:22 AM</div>
+      </div>
+    </div>
+
+    <div class="alert-card animate-in">
+      <div class="alert-dot-wrap"><div class="dot dot-green"></div></div>
+      <div class="alert-body">
+        <div class="alert-title">✅ Security Scan Complete</div>
+        <div class="alert-desc">All 3 devices passed security check. No anomalies detected.</div>
+        <div class="alert-time">Mar 20 at 9:00 AM</div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="section-title animate-in" style="margin-top:8px">Quick Actions</div>
+    <div class="actions-grid">
+      <div class="action-tile animate-in">
+        <div class="action-emoji">🔒</div>
+        <div class="action-name">Lock All Devices</div>
+        <div class="action-desc">Freeze payments instantly</div>
+      </div>
+      <div class="action-tile danger animate-in">
+        <div class="action-emoji">🚨</div>
+        <div class="action-name">Report Theft</div>
+        <div class="action-desc">Enable lost mode on all</div>
+      </div>
+      <div class="action-tile animate-in">
+        <div class="action-emoji">📍</div>
+        <div class="action-name">Locate Devices</div>
+        <div class="action-desc">Last known positions</div>
+      </div>
+      <div class="action-tile animate-in">
+        <div class="action-emoji">🔑</div>
+        <div class="action-name">Change PIN</div>
+        <div class="action-desc">Update payment PIN</div>
+      </div>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-item" data-screen="dashboard" data-goto="dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span>Home</span><div class="nav-active-dot"></div>
+    </div>
+    <div class="nav-item" data-screen="devices" data-goto="devices">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+      <span>Devices</span><div class="nav-active-dot"></div>
+    </div>
+    <div class="nav-item" data-screen="cards" data-goto="cards">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20"/></svg>
+      <span>Cards</span><div class="nav-active-dot"></div>
+    </div>
+    <div class="nav-item" data-screen="analytics" data-goto="analytics">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20l4-8 4 4 4-6 4 4"/><path d="M3 20h18"/></svg>
+      <span>Analytics</span><div class="nav-active-dot"></div>
+    </div>
+    <div class="nav-item active" data-screen="settings" data-goto="settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+      <span>Settings</span><div class="nav-active-dot"></div>
+    </div>
+  </nav>
+
+</div>
+<script src="../js/nav.js"></script>
+</body>
+</html>
