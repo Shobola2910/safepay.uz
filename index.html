@@ -998,7 +998,7 @@ img { display:block; max-width:100%; }
 
 /* ─ Shared auth wrapper ─ */
 .auth-wrap {
-  position:absolute; inset:0;
+  position:absolute; inset:0; z-index:10;
   background:var(--navy);
   display:flex; flex-direction:column;
   overflow:hidden;
@@ -1231,7 +1231,7 @@ img { display:block; max-width:100%; }
 
 /* ─ Splash ─ */
 .new-splash {
-  position:absolute; inset:0;
+  position:fixed; inset:0; z-index:999;
   background:linear-gradient(160deg, #04101f 0%, #081a35 50%, #04101f 100%);
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   overflow:hidden;
@@ -1263,7 +1263,7 @@ img { display:block; max-width:100%; }
 
 /* ─ Auth landing ─ */
 .auth-landing {
-  position:absolute; inset:0; background:var(--navy);
+  position:absolute; inset:0; z-index:10; background:var(--navy);
   display:flex; flex-direction:column; overflow:hidden;
 }
 .landing-hero {
@@ -2934,7 +2934,7 @@ img { display:block; max-width:100%; }
 <!-- ════════════════════════════
      BOTTOM NAVIGATION
 ════════════════════════════ -->
-<nav id="bottom-nav">
+<nav id="bottom-nav" class="hidden">
   <div class="nav-tab active" id="tab-home" onclick="showNavTab('home')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     <span>Bosh sahifa</span>
@@ -3863,10 +3863,14 @@ function buildChart(id, period = 'week') {
 }
 
 /* ── Splash → Onboarding ── */
-setTimeout(() => showScreen('onboarding'), 2200);
+setTimeout(() => showScreen('auth'), 2400);
 
 /* ── Init ── */
 document.addEventListener('DOMContentLoaded', () => {
+  // Always hide nav at start (splash screen)
+  const nav = document.getElementById('bottom-nav');
+  if (nav) nav.classList.add('hidden');
+
   buildHomeTxs();
   buildTxList();
   buildChart('mini-chart', 'week');
