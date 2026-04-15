@@ -991,6 +991,308 @@ img { display:block; max-width:100%; }
   font-size:13px; color:var(--teal); cursor:pointer; font-weight:500;
 }
 
+
+/* ══════════════════════════════════════════
+   AUTH / LOGIN — SAFEPAY UI (Reference-matched)
+══════════════════════════════════════════ */
+
+/* ─ Shared auth wrapper ─ */
+.auth-wrap {
+  position:absolute; inset:0;
+  background:var(--navy);
+  display:flex; flex-direction:column;
+  overflow:hidden;
+}
+.auth-status {
+  flex-shrink:0; padding:0 24px;
+  height:44px; display:flex; align-items:center;
+  justify-content:space-between;
+}
+.auth-status-time { font-size:14px; font-weight:600; }
+.auth-status-right { font-size:12px; color:var(--gray); }
+
+/* Top row: back + skip */
+.auth-toprow {
+  flex-shrink:0;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:8px 24px 0;
+}
+.auth-back {
+  width:38px; height:38px; border-radius:12px;
+  background:var(--navy2); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all .18s;
+}
+.auth-back:active { transform:scale(.93); }
+.auth-skip {
+  font-size:13px; color:var(--gray); cursor:pointer;
+  font-weight:500; padding:8px 0;
+  transition:color .2s;
+}
+.auth-skip:hover { color:var(--white); }
+
+/* Main scrollable content */
+.auth-body {
+  flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch;
+  scrollbar-width:none; padding:24px 24px 0;
+}
+.auth-body::-webkit-scrollbar { display:none; }
+
+/* Title block */
+.auth-title {
+  font-size:28px; font-weight:800; color:var(--white);
+  letter-spacing:-.3px; margin-bottom:6px;
+}
+.auth-subtitle {
+  font-size:13px; color:var(--gray); margin-bottom:28px;
+  line-height:1.5;
+}
+
+/* ─ Phone input (flag + number) ─ */
+.auth-phone-row {
+  display:flex; align-items:center; gap:0;
+  background:var(--navy2); border:1.5px solid var(--border);
+  border-radius:14px; overflow:hidden; margin-bottom:16px;
+  transition:border-color .2s;
+}
+.auth-phone-row:focus-within { border-color:var(--teal); }
+.auth-phone-flag {
+  display:flex; align-items:center; gap:6px;
+  padding:0 14px; height:54px; flex-shrink:0;
+  border-right:1px solid var(--border); cursor:pointer;
+  font-size:13px; color:var(--gray); font-weight:500;
+}
+.auth-phone-flag .flag { font-size:20px; }
+.auth-phone-input {
+  flex:1; height:54px; background:transparent;
+  border:none; outline:none; padding:0 16px;
+  font-size:16px; color:var(--white);
+  font-family:var(--mono); letter-spacing:.5px;
+}
+.auth-phone-input::placeholder { color:var(--gray2); font-family:var(--font); letter-spacing:0; }
+.auth-copy-icon {
+  padding:0 14px; color:var(--gray2); cursor:pointer;
+}
+
+/* ─ Generic input field ─ */
+.auth-field {
+  position:relative; margin-bottom:14px;
+}
+.auth-field input {
+  width:100%; height:54px; background:var(--navy2);
+  border:1.5px solid var(--border); border-radius:14px;
+  padding:0 44px 0 16px; font-size:15px; color:var(--white);
+  font-family:var(--font); outline:none; transition:border-color .2s;
+}
+.auth-field input:focus { border-color:var(--teal); }
+.auth-field input::placeholder { color:var(--gray2); }
+.auth-field-icon {
+  position:absolute; right:14px; top:50%;
+  transform:translateY(-50%); color:var(--gray2);
+  cursor:pointer; display:flex; align-items:center;
+}
+
+/* ─ Step dots ─ */
+.auth-dots {
+  display:flex; gap:6px; margin-bottom:28px;
+}
+.auth-dot {
+  width:8px; height:8px; border-radius:50%;
+  background:var(--navy3); transition:all .25s;
+}
+.auth-dot.active {
+  width:22px; border-radius:4px;
+  background:var(--teal);
+}
+.auth-dot.done { background:var(--emerald); }
+
+/* ─ Primary action button ─ */
+.auth-btn {
+  width:100%; height:54px; border-radius:14px;
+  background:var(--teal); color:white;
+  font-size:15px; font-weight:700; font-family:var(--font);
+  border:none; cursor:pointer; transition:all .2s;
+  display:flex; align-items:center; justify-content:center;
+  letter-spacing:.2px;
+}
+.auth-btn:active { transform:scale(.98); opacity:.9; }
+.auth-btn.secondary {
+  background:var(--navy2); color:var(--white);
+  border:1.5px solid var(--border);
+}
+.auth-btn.ghost {
+  background:transparent; color:var(--teal);
+  border:1.5px solid rgba(14,165,233,.35);
+}
+
+/* ─ "Already have account" link row ─ */
+.auth-link-row {
+  text-align:center; margin-top:18px; padding-bottom:28px;
+  font-size:13px; color:var(--gray);
+}
+.auth-link-row a, .auth-link-row span {
+  color:var(--teal); font-weight:700; cursor:pointer;
+  margin-left:4px;
+}
+
+/* ─ Numpad (shared for PIN & phone) ─ */
+.auth-numpad {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:10px; padding:0 8px; margin-top:8px;
+}
+.auth-key {
+  height:64px; border-radius:16px;
+  background:var(--navy2); border:1px solid var(--border);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  cursor:pointer; transition:all .14s;
+  -webkit-tap-highlight-color:transparent; gap:1px;
+}
+.auth-key:active { background:var(--navy3); transform:scale(.94); }
+.auth-key.empty { background:transparent; border-color:transparent; cursor:default; }
+.auth-key.del { background:var(--navy2); }
+.auth-key-num { font-size:22px; font-weight:600; line-height:1; color:var(--white); }
+.auth-key-sub { font-size:9px; color:var(--gray2); letter-spacing:.8px; font-weight:600; }
+
+/* ─ OTP input row (4 or 6 boxes) ─ */
+.otp-row-new {
+  display:flex; gap:10px; justify-content:center; margin:20px 0 24px;
+}
+.otp-box-new {
+  width:56px; height:64px; border-radius:16px;
+  background:var(--navy2); border:2px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:26px; font-weight:700; font-family:var(--mono);
+  color:var(--white); transition:all .2s;
+}
+.otp-box-new.filled { border-color:var(--teal); background:rgba(14,165,233,.1); }
+.otp-box-new.active { border-color:var(--teal); box-shadow:0 0 0 3px rgba(14,165,233,.18); }
+
+/* ─ PIN dots ─ */
+.pin-dots-new {
+  display:flex; gap:16px; justify-content:center; margin:20px 0 28px;
+}
+.pin-dot-new {
+  width:16px; height:16px; border-radius:50%;
+  border:2px solid rgba(14,165,233,.35); transition:all .15s;
+}
+.pin-dot-new.filled {
+  background:var(--teal); border-color:var(--teal);
+  box-shadow:0 0 10px rgba(14,165,233,.4);
+}
+
+/* ─ Divider ─ */
+.auth-divider {
+  display:flex; align-items:center; gap:12px; margin:18px 0;
+}
+.auth-divider-line { flex:1; height:1px; background:var(--border); }
+.auth-divider-txt { font-size:12px; color:var(--gray2); }
+
+/* ─ Avatar upload ─ */
+.avatar-upload-wrap {
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; padding:32px 0 24px;
+}
+.avatar-upload-circle {
+  width:90px; height:90px; border-radius:50%;
+  background:var(--navy2); border:2px dashed rgba(14,165,233,.4);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; overflow:hidden; position:relative;
+  margin-bottom:12px; transition:border-color .2s;
+}
+.avatar-upload-circle:hover { border-color:var(--teal); }
+.avatar-upload-lbl { font-size:14px; font-weight:600; color:var(--white); margin-bottom:4px; }
+.avatar-upload-sub { font-size:12px; color:var(--gray); }
+
+/* ─ Gender select ─ */
+.gender-row {
+  display:flex; gap:14px; justify-content:center;
+  margin:20px 0 28px;
+}
+.gender-opt {
+  flex:1; border-radius:16px; padding:20px 16px;
+  background:var(--navy2); border:2px solid var(--border);
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  cursor:pointer; transition:all .2s;
+}
+.gender-opt.selected { border-color:var(--teal); background:rgba(14,165,233,.08); }
+.gender-opt-icon { font-size:36px; }
+.gender-opt-lbl { font-size:13px; font-weight:600; color:var(--gray); }
+.gender-opt.selected .gender-opt-lbl { color:var(--teal); }
+
+/* ─ Password strength bar ─ */
+.pw-strength { margin-bottom:18px; }
+.pw-strength-bar { display:flex; gap:4px; margin-bottom:5px; }
+.pw-seg { flex:1; height:4px; border-radius:2px; background:var(--navy3); transition:background .3s; }
+.pw-seg.weak { background:#EF4444; }
+.pw-seg.med  { background:#F59E0B; }
+.pw-seg.str  { background:var(--emerald); }
+.pw-strength-lbl { font-size:11px; color:var(--gray); }
+
+/* ─ Splash ─ */
+.new-splash {
+  position:absolute; inset:0;
+  background:linear-gradient(160deg, #04101f 0%, #081a35 50%, #04101f 100%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.splash-halo {
+  position:absolute; width:300px; height:300px;
+  border-radius:50%; top:50%; left:50%; transform:translate(-50%,-58%);
+  background:radial-gradient(circle, rgba(14,165,233,.15) 0%, transparent 70%);
+  animation:halo 3s ease-in-out infinite;
+}
+@keyframes halo { 0%,100%{opacity:.5;transform:translate(-50%,-58%) scale(1)} 50%{opacity:1;transform:translate(-50%,-58%) scale(1.08)} }
+.splash-logo-new {
+  width:110px; height:110px; border-radius:32px;
+  background:linear-gradient(145deg,#0d4a8a,#062040);
+  border:2px solid rgba(14,165,233,.45);
+  display:flex; align-items:center; justify-content:center;
+  font-size:48px; position:relative; z-index:2;
+  margin-bottom:24px;
+  box-shadow:0 0 0 14px rgba(14,165,233,.06), 0 0 0 28px rgba(14,165,233,.03), 0 20px 60px rgba(0,0,0,.5);
+  animation:logoFloat 3s ease-in-out infinite;
+}
+@keyframes logoFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.splash-wordmark { font-size:34px; font-weight:800; letter-spacing:-.5px; position:relative; z-index:2; }
+.splash-wordmark b { color:var(--teal); font-weight:inherit; }
+.splash-tagline { font-size:12px; color:var(--gray); letter-spacing:1.5px; margin-top:7px; position:relative; z-index:2; }
+.splash-bar { width:90px; height:3px; background:rgba(255,255,255,.08); border-radius:2px; margin-top:44px; overflow:hidden; position:relative; z-index:2; }
+.splash-bar-fill { height:100%; border-radius:2px; background:linear-gradient(90deg,var(--teal),var(--emerald)); animation:splashLoad 2.2s ease forwards; }
+@keyframes splashLoad { from{width:0} to{width:100%} }
+
+/* ─ Auth landing ─ */
+.auth-landing {
+  position:absolute; inset:0; background:var(--navy);
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.landing-hero {
+  flex-shrink:0; min-height:42vh;
+  background:linear-gradient(160deg,#081830 0%,#0a1628 100%);
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:flex-end; padding:0 24px 36px; position:relative; overflow:hidden;
+}
+.landing-hero::after {
+  content:''; position:absolute; bottom:-1px; left:0; right:0;
+  height:36px; background:var(--navy); border-radius:36px 36px 0 0;
+}
+.landing-hero-glow {
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 70% at 50% 60%, rgba(14,165,233,.13), transparent 70%);
+}
+.landing-logo {
+  width:78px; height:78px; border-radius:22px;
+  background:linear-gradient(145deg,#0d4a8a,#062040);
+  border:1.5px solid rgba(14,165,233,.45);
+  display:flex; align-items:center; justify-content:center; font-size:34px;
+  box-shadow:0 8px 30px rgba(14,165,233,.18); position:relative; z-index:1;
+  margin-bottom:16px;
+}
+.landing-title { font-size:26px; font-weight:800; text-align:center; position:relative; z-index:1; margin-bottom:6px; }
+.landing-sub { font-size:13px; color:var(--gray); text-align:center; position:relative; z-index:1; }
+.landing-body { flex:1; padding:28px 24px 24px; overflow-y:auto; scrollbar-width:none; }
+.landing-body::-webkit-scrollbar { display:none; }
+
 </style>
 </head>
 <body>
@@ -1006,21 +1308,7 @@ img { display:block; max-width:100%; }
 <!-- ═══════════════════════════════
      SCREEN 1: SPLASH
 ═══════════════════════════════ -->
-<div class="screen active" id="splash">
-  <div class="splash-screen">
-    <div class="splash-glow-ring">
-      <div class="splash-orbit"><div class="splash-orbit-dot"></div></div>
-      <div class="splash-inner-ring">💎</div>
-    </div>
-    <div class="splash-title">Safe<span>Pay</span>.uz</div>
-    <div class="splash-subtitle">XAVFSIZ · TEZ · OSON</div>
-    <div class="splash-loader-bar"><div class="splash-loader-fill"></div></div>
-  </div>
-</div>
 
-<!-- ═══════════════════════════════
-     SCREEN 2: ONBOARDING
-═══════════════════════════════ -->
 <div class="screen" id="onboarding">
   <div class="status-bar px">
     <span id="onb-clock">09:41</span>
@@ -1056,324 +1344,382 @@ img { display:block; max-width:100%; }
   </div>
 </div>
 
+
 <!-- ═══════════════════════════════
-     SCREEN 3: AUTH
+     SCREEN: SPLASH (new)
+═══════════════════════════════ -->
+<div class="screen active" id="splash">
+  <div class="new-splash">
+    <div class="splash-halo"></div>
+    <div class="splash-logo-new">💎</div>
+    <div class="splash-wordmark">Safe<b>Pay</b>.uz</div>
+    <div class="splash-tagline">XAVFSIZ · TEZ · OSON</div>
+    <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN: AUTH LANDING
 ═══════════════════════════════ -->
 <div class="screen" id="auth">
-  <div class="auth-screen">
+  <div class="auth-landing">
     <!-- Hero -->
-    <div class="auth-hero">
-      <div class="auth-hero-bg"></div>
-      <div class="auth-logo-wrap">💎</div>
-      <div class="auth-hero-title">SafePay.uz ga<br>Xush Kelibsiz 👋</div>
-      <div class="auth-hero-sub">O'zbek fintech ekotizimi</div>
+    <div class="landing-hero">
+      <div class="landing-hero-glow"></div>
+      <div class="landing-logo">💎</div>
+      <div class="landing-title">SafePay.uz ga<br>Xush Kelibsiz</div>
+      <div class="landing-sub">O'zbekistonning eng xavfsiz<br>to'lov platformasi</div>
     </div>
 
-    <!-- Options -->
-    <div class="auth-body">
-      <div style="font-size:13px;color:var(--gray);margin-bottom:16px;font-weight:500">Davom etish uchun tanlang</div>
-
-      <div class="auth-option primary" onclick="showScreen('login')">
-        <div class="auth-option-icon" style="background:rgba(14,165,233,.2)">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </div>
-        <div class="auth-option-text">
-          <div class="auth-option-title">Kirish</div>
-          <div class="auth-option-sub">Mavjud hisob bilan kiring</div>
-        </div>
-        <div class="auth-option-arrow">›</div>
+    <!-- CTA buttons -->
+    <div class="landing-body">
+      <button class="auth-btn" style="margin-bottom:12px" onclick="showScreen('login')">
+        Hisobga kirish
+      </button>
+      <button class="auth-btn secondary" style="margin-bottom:12px" onclick="showScreen('register')">
+        Ro'yxatdan o'tish
+      </button>
+      <button class="auth-btn ghost" onclick="showScreen('home')">
+        Demo rejimda ko'rish
+      </button>
+      <div class="auth-link-row" style="margin-top:24px">
+        <span style="color:var(--gray)">Biometrik kirish:</span>
+        <span onclick="showScreen('pin-login')">👆 Face ID / Barmoq izi</span>
       </div>
-
-      <div class="auth-option" onclick="showScreen('register')">
-        <div class="auth-option-icon" style="background:rgba(16,185,129,.15)">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
-        </div>
-        <div class="auth-option-text">
-          <div class="auth-option-title">Ro'yxatdan o'tish</div>
-          <div class="auth-option-sub">Yangi hisob yaratish</div>
-        </div>
-        <div class="auth-option-arrow">›</div>
-      </div>
-
-      <div class="auth-option" onclick="showScreen('home')">
-        <div class="auth-option-icon" style="background:rgba(139,92,246,.15)">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3M17 17v3h3"/></svg>
-        </div>
-        <div class="auth-option-text">
-          <div class="auth-option-title">Demo rejimi</div>
-          <div class="auth-option-sub">Barcha funksiyalarni sinab ko'ring</div>
-        </div>
-        <div class="auth-option-arrow">›</div>
-      </div>
-
-      <!-- Divider -->
-      <div class="social-div"><div class="social-div-line"></div><span class="social-div-txt">yoki tezkor kirish</span><div class="social-div-line"></div></div>
-
-      <!-- Biometric -->
-      <div class="biometric-btn" onclick="showScreen('pin-login')">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/><path d="M12 6c-1.5 0-2.8.6-3.8 1.6M8 12c0 2.2 1.8 4 4 4s4-1.8 4-4-1.8-4-4-4"/><circle cx="12" cy="12" r="1.5" fill="var(--teal)"/></svg>
-        <span style="font-size:14px;font-weight:600;color:var(--teal)">Biometrik / PIN bilan kirish</span>
-      </div>
-
-      <div style="text-align:center;margin-top:24px;font-size:11px;color:var(--gray);line-height:1.6">
-        Davom etish orqali siz
-        <span style="color:var(--teal);cursor:pointer">Foydalanish shartlari</span> va
-        <span style="color:var(--teal);cursor:pointer">Maxfiylik siyosati</span> bilan rozisiz
+      <div style="text-align:center;margin-top:16px;font-size:11px;color:var(--gray2);line-height:1.7">
+        Davom etib, siz bizning
+        <span style="color:var(--teal);cursor:pointer">Foydalanish shartlari</span>
+        va <span style="color:var(--teal);cursor:pointer">Maxfiylik siyosati</span>ga rozisiz
       </div>
     </div>
   </div>
 </div>
 
 <!-- ═══════════════════════════════
-     SCREEN 4: LOGIN
+     SCREEN: LOGIN — Welcome back
 ═══════════════════════════════ -->
 <div class="screen" id="login">
-  <div class="login-screen-wrap">
-    <div class="status-bar px" style="flex-shrink:0"><span>09:41</span><div class="status-icons">▲▲▲ 🔋</div></div>
-    <div class="login-top">
-      <div class="login-back" onclick="showScreen('auth')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+  <div class="auth-wrap">
+    <div class="auth-status"><span class="auth-status-time" id="login-clock">09:41</span><span class="auth-status-right">▲▲▲ 🔋</span></div>
+    <div class="auth-toprow">
+      <div class="auth-back" onclick="showScreen('auth')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
       </div>
-      <div style="flex:1">
-        <div class="login-heading">Kirish</div>
-        <div style="font-size:13px;color:var(--gray);margin-top:2px">SafePay.uz hisobingizga</div>
+      <span class="auth-skip" onclick="showScreen('home')">Tizimga kirmasdan</span>
+    </div>
+
+    <div class="auth-body">
+      <div class="auth-title" style="margin-top:16px">Qayta xush kelibsiz!</div>
+      <div class="auth-subtitle">Ro'yxatdan o'tgan telefon raqamingizni kiriting</div>
+
+      <!-- Phone input -->
+      <div class="auth-phone-row">
+        <div class="auth-phone-flag">
+          <span class="flag">🇺🇿</span>
+          <span>+998</span>
+        </div>
+        <input class="auth-phone-input" type="tel" placeholder="90 000 000 000" id="login-phone-val">
+        <div class="auth-copy-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </div>
+      </div>
+
+      <!-- Sign in button -->
+      <button class="auth-btn" onclick="showScreen('otp-login')" style="margin-bottom:16px">
+        Kirish
+      </button>
+
+      <!-- Help link -->
+      <div style="text-align:center;margin-bottom:20px">
+        <span style="color:var(--teal);font-size:13px;font-weight:600;cursor:pointer" onclick="showScreen('forgot-pass')">Yordam kerakmi?</span>
+      </div>
+
+      <!-- Numpad -->
+      <div class="auth-numpad">
+        <div class="auth-key" onclick="loginNumTap('1')"><span class="auth-key-num">1</span></div>
+        <div class="auth-key" onclick="loginNumTap('2')"><span class="auth-key-num">2</span><span class="auth-key-sub">ABC</span></div>
+        <div class="auth-key" onclick="loginNumTap('3')"><span class="auth-key-num">3</span><span class="auth-key-sub">DEF</span></div>
+        <div class="auth-key" onclick="loginNumTap('4')"><span class="auth-key-num">4</span><span class="auth-key-sub">GHI</span></div>
+        <div class="auth-key" onclick="loginNumTap('5')"><span class="auth-key-num">5</span><span class="auth-key-sub">JKL</span></div>
+        <div class="auth-key" onclick="loginNumTap('6')"><span class="auth-key-num">6</span><span class="auth-key-sub">MNO</span></div>
+        <div class="auth-key" onclick="loginNumTap('7')"><span class="auth-key-num">7</span><span class="auth-key-sub">PQRS</span></div>
+        <div class="auth-key" onclick="loginNumTap('8')"><span class="auth-key-num">8</span><span class="auth-key-sub">TUV</span></div>
+        <div class="auth-key" onclick="loginNumTap('9')"><span class="auth-key-num">9</span><span class="auth-key-sub">WXYZ</span></div>
+        <div class="auth-key empty"></div>
+        <div class="auth-key" onclick="loginNumTap('0')"><span class="auth-key-num">0</span></div>
+        <div class="auth-key del" onclick="loginNumDel()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
+        </div>
       </div>
     </div>
 
-    <div class="scroll-content no-nav" style="padding:0 24px 24px">
+    <div class="auth-link-row">
+      Hisob yo'qmi?
+      <span onclick="showScreen('register')">Ro'yxatdan o'ting →</span>
+    </div>
+  </div>
+</div>
 
-      <!-- Tabs: Phone / Email -->
-      <div style="display:flex;background:var(--navy2);border-radius:12px;padding:4px;margin-bottom:22px">
-        <div id="login-tab-phone" onclick="switchLoginTab('phone')"
-          style="flex:1;text-align:center;padding:9px 0;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;background:var(--teal);color:white">
-          📱 Telefon
+<!-- ═══════════════════════════════
+     SCREEN: OTP LOGIN (phone confirm)
+═══════════════════════════════ -->
+<div class="screen" id="otp-login">
+  <div class="auth-wrap">
+    <div class="auth-status"><span class="auth-status-time">09:41</span><span class="auth-status-right">▲▲▲ 🔋</span></div>
+    <div class="auth-toprow">
+      <div class="auth-back" onclick="showScreen('login')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      </div>
+      <span class="auth-skip" onclick="showScreen('home')">Tizimga kirmasdan</span>
+    </div>
+    <div class="auth-body">
+      <div class="auth-title" style="margin-top:16px">OTP Yuborildi!</div>
+      <div class="auth-subtitle">
+        <span id="otp-login-num">+998 90 123 45 67</span> raqamiga 4 xonali kod yuborildi.<br>
+        <span style="color:var(--teal);cursor:pointer" onclick="showScreen('login')">Raqam noto'g'rimi?</span>
+      </div>
+
+      <!-- 4 OTP boxes -->
+      <div class="otp-row-new" id="otp-login-boxes">
+        <div class="otp-box-new active" id="olb0"></div>
+        <div class="otp-box-new" id="olb1"></div>
+        <div class="otp-box-new" id="olb2"></div>
+        <div class="otp-box-new" id="olb3"></div>
+      </div>
+
+      <button class="auth-btn" style="margin-bottom:14px" onclick="otpLoginConfirm()">Tasdiqlash</button>
+      <div style="text-align:center;margin-bottom:20px">
+        <span style="color:var(--teal);font-size:13px;font-weight:600;cursor:pointer" id="otp-resend-btn">OTP ni qayta yuborish</span>
+      </div>
+      <div style="text-align:center;margin-bottom:20px">
+        <span style="color:var(--gray);font-size:13px;cursor:pointer">Kodni olmadingizmi?</span>
+      </div>
+
+      <!-- Numpad -->
+      <div class="auth-numpad">
+        <div class="auth-key" onclick="otpLoginTap('1')"><span class="auth-key-num">1</span></div>
+        <div class="auth-key" onclick="otpLoginTap('2')"><span class="auth-key-num">2</span><span class="auth-key-sub">ABC</span></div>
+        <div class="auth-key" onclick="otpLoginTap('3')"><span class="auth-key-num">3</span><span class="auth-key-sub">DEF</span></div>
+        <div class="auth-key" onclick="otpLoginTap('4')"><span class="auth-key-num">4</span><span class="auth-key-sub">GHI</span></div>
+        <div class="auth-key" onclick="otpLoginTap('5')"><span class="auth-key-num">5</span><span class="auth-key-sub">JKL</span></div>
+        <div class="auth-key" onclick="otpLoginTap('6')"><span class="auth-key-num">6</span><span class="auth-key-sub">MNO</span></div>
+        <div class="auth-key" onclick="otpLoginTap('7')"><span class="auth-key-num">7</span><span class="auth-key-sub">PQRS</span></div>
+        <div class="auth-key" onclick="otpLoginTap('8')"><span class="auth-key-num">8</span><span class="auth-key-sub">TUV</span></div>
+        <div class="auth-key" onclick="otpLoginTap('9')"><span class="auth-key-num">9</span><span class="auth-key-sub">WXYZ</span></div>
+        <div class="auth-key empty"></div>
+        <div class="auth-key" onclick="otpLoginTap('0')"><span class="auth-key-num">0</span></div>
+        <div class="auth-key del" onclick="otpLoginDel()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
         </div>
-        <div id="login-tab-email" onclick="switchLoginTab('email')"
-          style="flex:1;text-align:center;padding:9px 0;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;color:var(--gray)">
-          ✉️ Email
-        </div>
-      </div>
-
-      <!-- Phone input -->
-      <div id="login-phone-field">
-        <div style="font-size:12px;color:var(--gray);font-weight:500;margin-bottom:6px">Telefon raqam</div>
-        <div class="phone-input-row">
-          <div class="phone-flag">🇺🇿 <span>+998</span></div>
-          <input type="tel" placeholder="90 123 45 67" id="login-phone-input">
-        </div>
-      </div>
-
-      <!-- Email input (hidden by default) -->
-      <div id="login-email-field" style="display:none">
-        <div style="font-size:12px;color:var(--gray);font-weight:500;margin-bottom:6px">Email manzil</div>
-        <input class="inp" type="email" placeholder="example@gmail.com" style="width:100%;margin-bottom:14px">
-      </div>
-
-      <!-- Password -->
-      <div style="font-size:12px;color:var(--gray);font-weight:500;margin-bottom:6px">Parol</div>
-      <div class="pass-input-row">
-        <input type="password" id="login-pass" placeholder="Parolni kiriting" value="demo1234">
-        <div class="pass-toggle" onclick="togglePass('login-pass',this)">👁</div>
-      </div>
-
-      <!-- Forgot -->
-      <div class="forgot-link" onclick="showScreen('forgot-pass')">Parolni unutdingizmi?</div>
-
-      <!-- Login button -->
-      <button class="btn btn-primary btn-full" style="height:52px;font-size:15px;margin-bottom:14px"
-        onclick="doLogin()">
-        Kirish →
-      </button>
-
-      <!-- Divider -->
-      <div class="social-div"><div class="social-div-line"></div><span class="social-div-txt">yoki</span><div class="social-div-line"></div></div>
-
-      <!-- Biometric -->
-      <div class="biometric-btn" style="margin-bottom:14px" onclick="showScreen('pin-login')">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/><path d="M12 6c-1.5 0-2.8.6-3.8 1.6M8 12c0 2.2 1.8 4 4 4s4-1.8 4-4-1.8-4-4-4"/><circle cx="12" cy="12" r="1.5" fill="var(--teal)"/></svg>
-        <span style="font-size:13px;font-weight:600">Biometrik kirish (Face ID / Barmoq)</span>
-      </div>
-
-      <!-- PIN login -->
-      <div class="biometric-btn" onclick="showScreen('pin-login')">
-        <span style="font-size:18px">🔢</span>
-        <span style="font-size:13px;font-weight:600">PIN-kod bilan kirish</span>
-      </div>
-
-      <div style="text-align:center;margin-top:22px;font-size:13px;color:var(--gray)">
-        Hisob yo'qmi?
-        <span style="color:var(--teal);font-weight:600;cursor:pointer" onclick="showScreen('register')">Ro'yxatdan o'ting</span>
       </div>
     </div>
   </div>
 </div>
 
 <!-- ═══════════════════════════════
-     SCREEN 5: REGISTER
+     SCREEN: REGISTER — Step 1 (First/Last name)
 ═══════════════════════════════ -->
 <div class="screen" id="register">
-  <div class="login-screen-wrap">
-    <div class="status-bar px" style="flex-shrink:0"><span>09:41</span><div class="status-icons">▲▲▲ 🔋</div></div>
-    <div class="login-top">
-      <div class="login-back" onclick="showScreen('auth')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+  <div class="auth-wrap">
+    <div class="auth-status"><span class="auth-status-time">09:41</span><span class="auth-status-right">▲▲▲ 🔋</span></div>
+    <div class="auth-toprow">
+      <div class="auth-back" onclick="showScreen('auth')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
       </div>
-      <div style="flex:1">
-        <div class="login-heading">Ro'yxatdan o'tish</div>
-        <div id="reg-step-label" style="font-size:13px;color:var(--gray);margin-top:2px">1-qadam: Shaxsiy ma'lumotlar</div>
-      </div>
+      <span class="auth-skip" onclick="showScreen('home')">Tizimga kirmasdan</span>
     </div>
+    <div class="auth-body">
+      <div class="auth-title" style="margin-top:16px">Ro'yxatdan o'tish</div>
+      <div class="auth-subtitle">Hisob yaratish uchun ma'lumot kiriting</div>
 
-    <!-- Progress bar -->
-    <div class="reg-step-bar" style="flex-shrink:0">
-      <div class="reg-step-seg done" id="rseg1"></div>
-      <div class="reg-step-seg" id="rseg2"></div>
-      <div class="reg-step-seg" id="rseg3"></div>
-      <div class="reg-step-seg" id="rseg4"></div>
-    </div>
-
-    <div class="scroll-content no-nav" style="padding:0 24px 24px">
-
-      <!-- Step 1: Personal info -->
-      <div id="reg-step1">
-        <div style="font-size:20px;margin-bottom:4px">👤</div>
-        <div style="font-size:17px;font-weight:700;margin-bottom:4px">Shaxsiy ma'lumotlar</div>
-        <div style="font-size:13px;color:var(--gray);margin-bottom:22px">To'liq ismingizni kiriting</div>
-
-        <div style="font-size:12px;color:var(--gray);font-weight:500;margin-bottom:6px">Ism</div>
-        <input class="inp" type="text" placeholder="Ismoilbek" value="Ismoilbek" style="width:100%;margin-bottom:14px">
-
-        <div style="font-size:12px;color:var(--gray);font-weight:500;margin-bottom:6px">Familiya</div>
-        <input class="inp" type="text" placeholder="Shorustamov" value="Shorustamov" style="width:100%;margin-bottom:14px">
-
-        <div style="font-size:12px;color:var(--gray);font-weight:500;margin-bottom:6px">Telefon raqam</div>
-        <div class="phone-input-row" style="margin-bottom:22px">
-          <div class="phone-flag">🇺🇿 <span>+998</span></div>
-          <input type="tel" placeholder="90 000 00 00" value="90 123 45 67">
-        </div>
-
-        <button class="btn btn-primary btn-full" style="height:52px;font-size:15px" onclick="regStep(2)">
-          Davom etish →
-        </button>
+      <!-- Step dots -->
+      <div class="auth-dots">
+        <div class="auth-dot active" id="rdot1"></div>
+        <div class="auth-dot" id="rdot2"></div>
+        <div class="auth-dot" id="rdot3"></div>
+        <div class="auth-dot" id="rdot4"></div>
+        <div class="auth-dot" id="rdot5"></div>
       </div>
 
-      <!-- Step 2: SMS verification -->
-      <div id="reg-step2" style="display:none">
-        <div style="font-size:20px;margin-bottom:4px">📱</div>
-        <div style="font-size:17px;font-weight:700;margin-bottom:4px">SMS tasdiqlash</div>
-        <div style="font-size:13px;color:var(--gray);margin-bottom:22px">
-          <b style="color:var(--white)">+998 90 123 45 67</b> raqamiga 6 xonali kod yuborildi
-        </div>
-
-        <div class="otp-circles-row">
-          <input class="otp-box" maxlength="1" value="4" style="display:none">
-          <input class="otp-box" maxlength="1" value="8" style="display:none">
-          <input class="otp-box" maxlength="1" value="2" style="display:none">
-          <input class="otp-box" maxlength="1" style="display:none">
-          <input class="otp-box" maxlength="1" style="display:none">
-          <input class="otp-box" maxlength="1" style="display:none">
-          <div class="otp-circle filled">4</div>
-          <div class="otp-circle filled">8</div>
-          <div class="otp-circle filled">2</div>
-          <div class="otp-circle active"></div>
-          <div class="otp-circle"></div>
-          <div class="otp-circle"></div>
-        </div>
-
-        <!-- Numpad for OTP -->
-        <div class="pin-numpad" style="margin-bottom:20px">
-          <div class="pin-num-key" onclick="otpTap('1')"><span class="pin-num-big">1</span></div>
-          <div class="pin-num-key" onclick="otpTap('2')"><span class="pin-num-big">2</span><span class="pin-num-sub">ABC</span></div>
-          <div class="pin-num-key" onclick="otpTap('3')"><span class="pin-num-big">3</span><span class="pin-num-sub">DEF</span></div>
-          <div class="pin-num-key" onclick="otpTap('4')"><span class="pin-num-big">4</span><span class="pin-num-sub">GHI</span></div>
-          <div class="pin-num-key" onclick="otpTap('5')"><span class="pin-num-big">5</span><span class="pin-num-sub">JKL</span></div>
-          <div class="pin-num-key" onclick="otpTap('6')"><span class="pin-num-big">6</span><span class="pin-num-sub">MNO</span></div>
-          <div class="pin-num-key" onclick="otpTap('7')"><span class="pin-num-big">7</span><span class="pin-num-sub">PQRS</span></div>
-          <div class="pin-num-key" onclick="otpTap('8')"><span class="pin-num-big">8</span><span class="pin-num-sub">TUV</span></div>
-          <div class="pin-num-key" onclick="otpTap('9')"><span class="pin-num-big">9</span><span class="pin-num-sub">WXYZ</span></div>
-          <div class="pin-num-key empty"></div>
-          <div class="pin-num-key" onclick="otpTap('0')"><span class="pin-num-big">0</span></div>
-          <div class="pin-num-key del" onclick="otpTap('del')">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
+      <!-- Step 1: Name -->
+      <div id="rs1">
+        <div class="auth-field">
+          <input type="text" placeholder="Ism" id="r-firstname" value="Ismoilbek">
+          <div class="auth-field-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </div>
         </div>
-
-        <div style="text-align:center;font-size:13px;color:var(--gray)">
-          Kod kelmadimi?
-          <span style="color:var(--teal);font-weight:600;cursor:pointer" id="resend-timer">0:42 da qayta yuborish</span>
+        <div class="auth-field" style="margin-bottom:28px">
+          <input type="text" placeholder="Familiya" id="r-lastname" value="Shorustamov">
+          <div class="auth-field-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
         </div>
+        <button class="auth-btn" onclick="regGo(2)">Davom etish</button>
+        <div class="auth-link-row">Hisob bormi?<span onclick="showScreen('login')"> Kirish →</span></div>
+      </div>
+
+      <!-- Step 2: Email -->
+      <div id="rs2" style="display:none">
+        <div class="auth-field">
+          <input type="email" placeholder="Email manzil" id="r-email">
+          <div class="auth-field-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+        </div>
+        <div class="auth-field" style="margin-bottom:28px">
+          <input type="email" placeholder="Qo'shimcha email (ixtiyoriy)" id="r-email2">
+          <div class="auth-field-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+        </div>
+        <button class="auth-btn" onclick="regGo(3)">Davom etish</button>
+        <div class="auth-link-row">Hisob bormi?<span onclick="showScreen('login')"> Kirish →</span></div>
       </div>
 
       <!-- Step 3: Password -->
-      <div id="reg-step3" style="display:none">
-        <div style="font-size:20px;margin-bottom:4px">🔒</div>
-        <div style="font-size:17px;font-weight:700;margin-bottom:4px">Parol yaratish</div>
-        <div style="font-size:13px;color:var(--gray);margin-bottom:22px">Kuchli va xavfsiz parol tanlang</div>
-
-        <div style="font-size:12px;color:var(--gray);font-weight:500;margin-bottom:6px">Parol</div>
-        <div class="pass-input-row" style="margin-bottom:14px">
-          <input type="password" id="reg-pass1" placeholder="Kamida 8 belgi">
-          <div class="pass-toggle" onclick="togglePass('reg-pass1',this)">👁</div>
-        </div>
-
-        <div style="font-size:12px;color:var(--gray);font-weight:500;margin-bottom:6px">Parolni tasdiqlang</div>
-        <div class="pass-input-row" style="margin-bottom:16px">
-          <input type="password" id="reg-pass2" placeholder="Parolni qayta kiriting">
-          <div class="pass-toggle" onclick="togglePass('reg-pass2',this)">👁</div>
-        </div>
-
-        <!-- Password strength -->
-        <div style="margin-bottom:20px">
-          <div style="display:flex;gap:4px;margin-bottom:6px">
-            <div style="flex:1;height:4px;border-radius:2px;background:#EF4444"></div>
-            <div style="flex:1;height:4px;border-radius:2px;background:#F59E0B"></div>
-            <div style="flex:1;height:4px;border-radius:2px;background:#10B981"></div>
-            <div style="flex:1;height:4px;border-radius:2px;background:var(--navy3)"></div>
-          </div>
-          <div style="font-size:11px;color:#10B981">O'rta kuchlilik</div>
-        </div>
-
-        <button class="btn btn-primary btn-full" style="height:52px;font-size:15px" onclick="regStep(4)">
-          Davom etish →
-        </button>
-      </div>
-
-      <!-- Step 4: PIN setup -->
-      <div id="reg-step4" style="display:none">
-        <div style="font-size:20px;margin-bottom:4px;text-align:center">🔢</div>
-        <div style="font-size:17px;font-weight:700;margin-bottom:4px;text-align:center">PIN-kod o'rnatish</div>
-        <div style="font-size:13px;color:var(--gray);margin-bottom:22px;text-align:center">6 raqamli xavfsizlik kodi</div>
-
-        <div class="pin-dots-row">
-          <div class="pin-circle" id="pd0"></div>
-          <div class="pin-circle" id="pd1"></div>
-          <div class="pin-circle" id="pd2"></div>
-          <div class="pin-circle" id="pd3"></div>
-          <div class="pin-circle" id="pd4"></div>
-          <div class="pin-circle" id="pd5"></div>
-        </div>
-
-        <div class="pin-numpad">
-          <div class="pin-num-key" onclick="pinTap('1')"><span class="pin-num-big">1</span></div>
-          <div class="pin-num-key" onclick="pinTap('2')"><span class="pin-num-big">2</span><span class="pin-num-sub">ABC</span></div>
-          <div class="pin-num-key" onclick="pinTap('3')"><span class="pin-num-big">3</span><span class="pin-num-sub">DEF</span></div>
-          <div class="pin-num-key" onclick="pinTap('4')"><span class="pin-num-big">4</span><span class="pin-num-sub">GHI</span></div>
-          <div class="pin-num-key" onclick="pinTap('5')"><span class="pin-num-big">5</span><span class="pin-num-sub">JKL</span></div>
-          <div class="pin-num-key" onclick="pinTap('6')"><span class="pin-num-big">6</span><span class="pin-num-sub">MNO</span></div>
-          <div class="pin-num-key" onclick="pinTap('7')"><span class="pin-num-big">7</span><span class="pin-num-sub">PQRS</span></div>
-          <div class="pin-num-key" onclick="pinTap('8')"><span class="pin-num-big">8</span><span class="pin-num-sub">TUV</span></div>
-          <div class="pin-num-key" onclick="pinTap('9')"><span class="pin-num-big">9</span><span class="pin-num-sub">WXYZ</span></div>
-          <div class="pin-num-key empty"></div>
-          <div class="pin-num-key" onclick="pinTap('0')"><span class="pin-num-big">0</span></div>
-          <div class="pin-num-key del" onclick="pinDel()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
+      <div id="rs3" style="display:none">
+        <div class="auth-field">
+          <input type="password" placeholder="Parol" id="r-pw1">
+          <div class="auth-field-icon" onclick="togglePassField('r-pw1',this)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           </div>
         </div>
+        <div class="auth-field" style="margin-bottom:14px">
+          <input type="password" placeholder="Parolni takrorlang" id="r-pw2">
+          <div class="auth-field-icon" onclick="togglePassField('r-pw2',this)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+        </div>
+        <!-- Strength -->
+        <div class="pw-strength">
+          <div class="pw-strength-bar">
+            <div class="pw-seg med"></div>
+            <div class="pw-seg med"></div>
+            <div class="pw-seg str"></div>
+            <div class="pw-seg" style="background:var(--navy3)"></div>
+          </div>
+          <div class="pw-strength-lbl">O'rta kuchlilik — raqam va belgi qo'shing</div>
+        </div>
+        <button class="auth-btn" onclick="regGo(4)" style="margin-bottom:0">Davom etish</button>
+        <div class="auth-link-row">Hisob bormi?<span onclick="showScreen('login')"> Kirish →</span></div>
       </div>
 
+      <!-- Step 4: Gender -->
+      <div id="rs4" style="display:none">
+        <div class="gender-row">
+          <div class="gender-opt selected" id="gopt-m" onclick="selectGender('m')">
+            <div class="gender-opt-icon">👨</div>
+            <div class="gender-opt-lbl">Erkak</div>
+          </div>
+          <div class="gender-opt" id="gopt-f" onclick="selectGender('f')">
+            <div class="gender-opt-icon">👩</div>
+            <div class="gender-opt-lbl">Ayol</div>
+          </div>
+        </div>
+        <button class="auth-btn" onclick="regGo(5)">Jinsni tanlash</button>
+        <div class="auth-link-row">Hisob bormi?<span onclick="showScreen('login')"> Kirish →</span></div>
+      </div>
+
+      <!-- Step 5: Profile photo + finish -->
+      <div id="rs5" style="display:none">
+        <div class="avatar-upload-wrap">
+          <div class="avatar-upload-circle" onclick="showToast('📸','Rasm yuklash...')">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </div>
+          <div class="avatar-upload-lbl">Profil rasmini yuklash</div>
+          <div class="avatar-upload-sub">JPEG yoki PNG, max 5MB</div>
+        </div>
+        <button class="auth-btn" onclick="finishRegister()">Hisobni yaratish</button>
+        <div class="auth-link-row">Hisob bormi?<span onclick="showScreen('login')"> Kirish →</span></div>
+      </div>
     </div>
   </div>
 </div>
+
+<!-- ═══════════════════════════════
+     SCREEN: FORGOT PASSWORD
+═══════════════════════════════ -->
+<div class="screen" id="forgot-pass">
+  <div class="auth-wrap">
+    <div class="auth-status"><span class="auth-status-time">09:41</span><span class="auth-status-right">▲▲▲ 🔋</span></div>
+    <div class="auth-toprow">
+      <div class="auth-back" onclick="showScreen('login')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      </div>
+      <span class="auth-skip" onclick="showScreen('login')">Bekor qilish</span>
+    </div>
+    <div class="auth-body">
+      <div class="auth-title" style="margin-top:16px">Parolni tiklash</div>
+      <div class="auth-subtitle">Hisob yaratish uchun ma'lumot kiriting</div>
+
+      <div class="auth-field" style="margin-bottom:32px">
+        <input type="email" placeholder="Email manzil">
+        <div class="auth-field-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+      </div>
+      <button class="auth-btn" onclick="showToast('📧','Havola yuborildi! Email ni tekshiring');showScreen('login')">
+        Havola yuborish
+      </button>
+      <div class="auth-link-row">Parolni esladingizmi?<span onclick="showScreen('login')"> Kirish →</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN: PIN LOGIN
+═══════════════════════════════ -->
+<div class="screen" id="pin-login">
+  <div class="auth-wrap" style="align-items:center">
+    <div class="auth-status" style="width:100%;padding:0 24px"><span class="auth-status-time">09:41</span><span class="auth-status-right">▲▲▲ 🔋</span></div>
+
+    <!-- Avatar + name -->
+    <div style="flex:0 0 auto;padding:40px 24px 0;text-align:center;width:100%">
+      <div style="width:80px;height:80px;border-radius:24px;background:linear-gradient(145deg,#0d4a8a,#062040);border:2px solid rgba(14,165,233,.4);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 14px;box-shadow:0 8px 28px rgba(14,165,233,.18)">💎</div>
+      <div style="font-size:18px;font-weight:700">Ismoilbek Shorustamov</div>
+      <div style="font-size:13px;color:var(--gray);margin-top:4px">PIN-kod kiriting</div>
+    </div>
+
+    <!-- PIN dots -->
+    <div class="pin-dots-new">
+      <div class="pin-dot-new" id="pld0"></div>
+      <div class="pin-dot-new" id="pld1"></div>
+      <div class="pin-dot-new" id="pld2"></div>
+      <div class="pin-dot-new" id="pld3"></div>
+      <div class="pin-dot-new" id="pld4"></div>
+      <div class="pin-dot-new" id="pld5"></div>
+    </div>
+
+    <!-- Numpad -->
+    <div style="width:100%;padding:0 24px;flex:0 0 auto">
+      <div class="auth-numpad">
+        <div class="auth-key" onclick="pinLoginTap('1')"><span class="auth-key-num">1</span></div>
+        <div class="auth-key" onclick="pinLoginTap('2')"><span class="auth-key-num">2</span><span class="auth-key-sub">ABC</span></div>
+        <div class="auth-key" onclick="pinLoginTap('3')"><span class="auth-key-num">3</span><span class="auth-key-sub">DEF</span></div>
+        <div class="auth-key" onclick="pinLoginTap('4')"><span class="auth-key-num">4</span><span class="auth-key-sub">GHI</span></div>
+        <div class="auth-key" onclick="pinLoginTap('5')"><span class="auth-key-num">5</span><span class="auth-key-sub">JKL</span></div>
+        <div class="auth-key" onclick="pinLoginTap('6')"><span class="auth-key-num">6</span><span class="auth-key-sub">MNO</span></div>
+        <div class="auth-key" onclick="pinLoginTap('7')"><span class="auth-key-num">7</span><span class="auth-key-sub">PQRS</span></div>
+        <div class="auth-key" onclick="pinLoginTap('8')"><span class="auth-key-num">8</span><span class="auth-key-sub">TUV</span></div>
+        <div class="auth-key" onclick="pinLoginTap('9')"><span class="auth-key-num">9</span><span class="auth-key-sub">WXYZ</span></div>
+        <div class="auth-key" onclick="showScreen('login')" style="flex-direction:row;gap:5px">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+          <span style="font-size:10px;color:var(--teal);font-weight:600">Chiq</span>
+        </div>
+        <div class="auth-key" onclick="pinLoginTap('0')"><span class="auth-key-num">0</span></div>
+        <div class="auth-key del" onclick="pinLoginDel()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:18px 0 24px;font-size:13px;color:var(--gray);cursor:pointer;flex:0 0 auto" onclick="showScreen('login')">
+      Boshqa hisob bilan kirish
+    </div>
+  </div>
+</div>
+
 
 <!-- ═══════════════════════════════
      SCREEN 6: HOME
@@ -3206,93 +3552,47 @@ img { display:block; max-width:100%; }
   </div>
 </div>
 
-<!-- ════════════════════════
-     SCREEN: PIN LOGIN
-════════════════════════ -->
-<div class="screen" id="pin-login">
-  <div class="pin-screen-wrap" style="background:var(--navy)">
-    <div class="status-bar px" style="width:100%;flex-shrink:0"><span>09:41</span><div class="status-icons">▲▲▲ 🔋</div></div>
-
-    <div style="flex-shrink:0;padding:28px 24px 0;text-align:center;width:100%">
-      <div style="width:72px;height:72px;border-radius:22px;background:linear-gradient(135deg,#0d4a8a,#0a2a5a);border:1.5px solid rgba(14,165,233,.4);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:32px">💎</div>
-      <div style="font-size:18px;font-weight:700;margin-bottom:4px">Ismoilbek Shorustamov</div>
-      <div style="font-size:13px;color:var(--gray)">PIN-kod kiriting</div>
-    </div>
-
-    <div class="pin-dots-row" id="pin-login-dots">
-      <div class="pin-circle" id="pld0"></div>
-      <div class="pin-circle" id="pld1"></div>
-      <div class="pin-circle" id="pld2"></div>
-      <div class="pin-circle" id="pld3"></div>
-      <div class="pin-circle" id="pld4"></div>
-      <div class="pin-circle" id="pld5"></div>
-    </div>
-
-    <div class="pin-numpad" style="flex-shrink:0;padding:0 24px;width:100%">
-      <div class="pin-num-key" onclick="pinLoginTap('1')"><span class="pin-num-big">1</span></div>
-      <div class="pin-num-key" onclick="pinLoginTap('2')"><span class="pin-num-big">2</span><span class="pin-num-sub">ABC</span></div>
-      <div class="pin-num-key" onclick="pinLoginTap('3')"><span class="pin-num-big">3</span><span class="pin-num-sub">DEF</span></div>
-      <div class="pin-num-key" onclick="pinLoginTap('4')"><span class="pin-num-big">4</span><span class="pin-num-sub">GHI</span></div>
-      <div class="pin-num-key" onclick="pinLoginTap('5')"><span class="pin-num-big">5</span><span class="pin-num-sub">JKL</span></div>
-      <div class="pin-num-key" onclick="pinLoginTap('6')"><span class="pin-num-big">6</span><span class="pin-num-sub">MNO</span></div>
-      <div class="pin-num-key" onclick="pinLoginTap('7')"><span class="pin-num-big">7</span><span class="pin-num-sub">PQRS</span></div>
-      <div class="pin-num-key" onclick="pinLoginTap('8')"><span class="pin-num-big">8</span><span class="pin-num-sub">TUV</span></div>
-      <div class="pin-num-key" onclick="pinLoginTap('9')"><span class="pin-num-big">9</span><span class="pin-num-sub">WXYZ</span></div>
-      <div class="pin-num-key" onclick="showScreen('auth')" style="flex-direction:row;gap:6px">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
-        <span style="font-size:11px;color:var(--teal)">Orqaga</span>
+<!-- ═══════════════════════════════
+     SCREEN: PIN SETUP (after register/OTP)
+═══════════════════════════════ -->
+<div class="screen" id="pin-setup">
+  <div class="auth-wrap" style="align-items:center">
+    <div class="auth-status" style="width:100%;padding:0 24px"><span class="auth-status-time">09:41</span><span class="auth-status-right">▲▲▲ 🔋</span></div>
+    <div style="flex:0 0 auto;padding:40px 24px 0;text-align:center;width:100%">
+      <div style="width:64px;height:64px;border-radius:20px;background:rgba(14,165,233,.12);border:1.5px solid rgba(14,165,233,.35);display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       </div>
-      <div class="pin-num-key" onclick="pinLoginTap('0')"><span class="pin-num-big">0</span></div>
-      <div class="pin-num-key del" onclick="pinLoginDel()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
+      <div style="font-size:20px;font-weight:800;margin-bottom:6px">PIN-kod o'rnating</div>
+      <div style="font-size:13px;color:var(--gray)">6 raqamli xavfsizlik kodini kiriting</div>
+    </div>
+    <div class="pin-dots-new">
+      <div class="pin-dot-new" id="psd0"></div>
+      <div class="pin-dot-new" id="psd1"></div>
+      <div class="pin-dot-new" id="psd2"></div>
+      <div class="pin-dot-new" id="psd3"></div>
+      <div class="pin-dot-new" id="psd4"></div>
+      <div class="pin-dot-new" id="psd5"></div>
+    </div>
+    <div style="width:100%;padding:0 24px;flex:0 0 auto">
+      <div class="auth-numpad">
+        <div class="auth-key" onclick="pinSetupTap('1')"><span class="auth-key-num">1</span></div>
+        <div class="auth-key" onclick="pinSetupTap('2')"><span class="auth-key-num">2</span><span class="auth-key-sub">ABC</span></div>
+        <div class="auth-key" onclick="pinSetupTap('3')"><span class="auth-key-num">3</span><span class="auth-key-sub">DEF</span></div>
+        <div class="auth-key" onclick="pinSetupTap('4')"><span class="auth-key-num">4</span><span class="auth-key-sub">GHI</span></div>
+        <div class="auth-key" onclick="pinSetupTap('5')"><span class="auth-key-num">5</span><span class="auth-key-sub">JKL</span></div>
+        <div class="auth-key" onclick="pinSetupTap('6')"><span class="auth-key-num">6</span><span class="auth-key-sub">MNO</span></div>
+        <div class="auth-key" onclick="pinSetupTap('7')"><span class="auth-key-num">7</span><span class="auth-key-sub">PQRS</span></div>
+        <div class="auth-key" onclick="pinSetupTap('8')"><span class="auth-key-num">8</span><span class="auth-key-sub">TUV</span></div>
+        <div class="auth-key" onclick="pinSetupTap('9')"><span class="auth-key-num">9</span><span class="auth-key-sub">WXYZ</span></div>
+        <div class="auth-key empty"></div>
+        <div class="auth-key" onclick="pinSetupTap('0')"><span class="auth-key-num">0</span></div>
+        <div class="auth-key del" onclick="pinSetupDel()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
+        </div>
       </div>
     </div>
-
-    <div style="padding:20px 24px 0;text-align:center;flex-shrink:0;width:100%">
-      <div onclick="showScreen('login')" style="font-size:13px;color:var(--gray);cursor:pointer">
-        Boshqa hisob bilan kirish →
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════
-     SCREEN: FORGOT PASSWORD
-════════════════════════ -->
-<div class="screen" id="forgot-pass">
-  <div class="login-screen-wrap">
-    <div class="status-bar px" style="flex-shrink:0"><span>09:41</span><div class="status-icons">▲▲▲ 🔋</div></div>
-    <div class="login-top">
-      <div class="login-back" onclick="showScreen('login')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
-      </div>
-      <div style="flex:1">
-        <div class="login-heading">Parolni tiklash</div>
-        <div style="font-size:13px;color:var(--gray);margin-top:2px">Telefon raqamingizni kiriting</div>
-      </div>
-    </div>
-
-    <div style="padding:0 24px 24px">
-      <div style="text-align:center;margin-bottom:28px">
-        <div style="width:80px;height:80px;border-radius:24px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:36px">🔑</div>
-        <div style="font-size:15px;color:var(--gray);line-height:1.6">Telefon raqamingizga tasdiqlash<br>kodi yuboramiz</div>
-      </div>
-
-      <div style="font-size:12px;color:var(--gray);font-weight:500;margin-bottom:6px">Telefon raqam</div>
-      <div class="phone-input-row" style="margin-bottom:22px">
-        <div class="phone-flag">🇺🇿 <span>+998</span></div>
-        <input type="tel" placeholder="90 123 45 67">
-      </div>
-
-      <button class="btn btn-primary btn-full" style="height:52px;font-size:15px;margin-bottom:14px"
-        onclick="showToast('📱','SMS kod yuborildi: +998 90 123 45 67');showScreen('register')">
-        SMS kod yuborish →
-      </button>
-
-      <div style="text-align:center;font-size:13px;color:var(--gray)">
-        Parolni esladingizmi?
-        <span style="color:var(--teal);font-weight:600;cursor:pointer" onclick="showScreen('login')">Kirish</span>
-      </div>
+    <div style="padding:18px 0 24px;font-size:13px;color:var(--gray);cursor:pointer;flex:0 0 auto" onclick="showScreen('home')">
+      Keyinga qoldirish →
     </div>
   </div>
 </div>
@@ -3722,6 +4022,132 @@ function updatePinDots(prefix, arr) {
     if (d) d.classList.toggle('filled', i < arr.length);
   }
 }
+
+
+/* ══════════════════════════════════
+   AUTH FLOW LOGIC
+══════════════════════════════════ */
+
+/* ─ Login phone numpad ─ */
+const loginPhone = { val: '' };
+function loginNumTap(d) {
+  if (loginPhone.val.length >= 9) return;
+  loginPhone.val += d;
+  const el = document.getElementById('login-phone-val');
+  if (el) { const v=loginPhone.val; el.value = v.length>7?v.slice(0,2)+' '+v.slice(2,5)+' '+v.slice(5,7)+' '+v.slice(7):v; }
+}
+function loginNumDel() {
+  loginPhone.val = loginPhone.val.slice(0,-1);
+  const el = document.getElementById('login-phone-val');
+  if (el) el.value = loginPhone.val;
+}
+
+/* ─ OTP Login (4-digit) ─ */
+const otpLoginVals = [];
+function otpLoginTap(d) {
+  if (otpLoginVals.length >= 4) return;
+  otpLoginVals.push(d);
+  updateOtpLoginBoxes();
+  if (otpLoginVals.length === 4) setTimeout(otpLoginConfirm, 300);
+}
+function otpLoginDel() {
+  otpLoginVals.pop();
+  updateOtpLoginBoxes();
+}
+function updateOtpLoginBoxes() {
+  for (let i = 0; i < 4; i++) {
+    const b = document.getElementById('olb' + i);
+    if (!b) continue;
+    b.classList.remove('filled','active');
+    if (i < otpLoginVals.length) { b.classList.add('filled'); b.textContent = otpLoginVals[i]; }
+    else { b.textContent = ''; if (i === otpLoginVals.length) b.classList.add('active'); }
+  }
+}
+function otpLoginConfirm() {
+  if (otpLoginVals.length === 4) {
+    showToast('✅','Muvaffaqiyatli kirdingiz!');
+    otpLoginVals.length = 0;
+    updateOtpLoginBoxes();
+    setTimeout(() => showScreen('pin-setup'), 400);
+  }
+}
+
+/* ─ PIN Setup (after OTP confirm) ─ */
+const pinSetupVals = [];
+function pinSetupTap(d) {
+  if (pinSetupVals.length >= 6) return;
+  pinSetupVals.push(d);
+  for (let i = 0; i < 6; i++) {
+    const d2 = document.getElementById('psd' + i);
+    if (d2) d2.classList.toggle('filled', i < pinSetupVals.length);
+  }
+  if (pinSetupVals.length === 6) {
+    setTimeout(() => { showToast('✅','PIN o'rnatildi!'); showScreen('home'); }, 400);
+  }
+}
+function pinSetupDel() {
+  pinSetupVals.pop();
+  for (let i = 0; i < 6; i++) {
+    const d2 = document.getElementById('psd' + i);
+    if (d2) d2.classList.toggle('filled', i < pinSetupVals.length);
+  }
+}
+
+/* ─ PIN Login ─ */
+const pinLoginVals = [];
+
+function pinLoginDel() {
+  pinLoginVals.pop();
+  for (let i = 0; i < 6; i++) {
+    const dot = document.getElementById('pld' + i);
+    if (dot) dot.classList.toggle('filled', i < pinLoginVals.length);
+  }
+}
+
+/* ─ Register steps ─ */
+let currentRegStep = 1;
+function regGo(n) {
+  for (let i = 1; i <= 5; i++) {
+    const el = document.getElementById('rs' + i);
+    if (el) el.style.display = i === n ? 'block' : 'none';
+    const dot = document.getElementById('rdot' + i);
+    if (dot) {
+      dot.classList.remove('active','done');
+      if (i < n) dot.classList.add('done');
+      else if (i === n) dot.classList.add('active');
+    }
+  }
+  currentRegStep = n;
+  // Scroll to top
+  const body = document.querySelector('#register .auth-body');
+  if (body) body.scrollTop = 0;
+}
+function selectGender(g) {
+  const m = document.getElementById('gopt-m');
+  const f = document.getElementById('gopt-f');
+  if (m) m.classList.toggle('selected', g === 'm');
+  if (f) f.classList.toggle('selected', g === 'f');
+}
+function finishRegister() {
+  showToast('🎉','Hisob muvaffaqiyatli yaratildi!');
+  setTimeout(() => showScreen('pin-setup'), 500);
+}
+
+/* ─ Toggle password eye ─ */
+function togglePassField(id, icon) {
+  const inp = document.getElementById(id);
+  if (!inp) return;
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    icon.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+  } else {
+    inp.type = 'password';
+    icon.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+  }
+}
+
+/* ─ PIN Setup Screen (inserted dynamically after OTP) ─ */
+// showScreen will handle pin-setup if it exists
 
 </script>
 </body>
