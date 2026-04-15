@@ -1348,7 +1348,7 @@ img { display:block; max-width:100%; }
 <!-- ═══════════════════════════════
      SCREEN: SPLASH (new)
 ═══════════════════════════════ -->
-<div class="screen active" id="splash">
+<div class="screen active" id="splash" onclick="showScreen('auth')" style="cursor:pointer">
   <div class="new-splash">
     <div class="splash-halo"></div>
     <div class="splash-logo-new">💎</div>
@@ -3668,7 +3668,7 @@ function goBack() {
 function updateClock() {
   const n = new Date();
   const t = n.getHours().toString().padStart(2,'0') + ':' + n.getMinutes().toString().padStart(2,'0');
-  document.querySelectorAll('#home-clock, #onb-clock').forEach(el => { if (el) el.textContent = t; });
+  document.querySelectorAll('#home-clock, #onb-clock, #login-clock, #tolov-clock').forEach(el => { if (el) el.textContent = t; });
 }
 updateClock();
 setInterval(updateClock, 30000);
@@ -3712,6 +3712,7 @@ function onbNext() {
 
 /* ── Registration Steps ── */
 function regStep(n) {
+  /* Legacy support for old reg screen */
   for (let i = 1; i <= 4; i++) {
     const el = document.getElementById('reg-step' + i);
     if (el) el.style.display = i === n ? 'block' : 'none';
@@ -3733,7 +3734,7 @@ function pinTap(v) {
   if (!v) return;
   if (state.pin.length < 6) { state.pin.push(v); updatePinDots('pd', state.pin); }
   if (state.pin.length === 6) {
-    setTimeout(() => { showToast('✅','PIN-kod o\'rnatildi!'); showScreen('home'); }, 400);
+    setTimeout(() => { showToast('✅','PIN ornatildi!'); showScreen('home'); }, 400);
   }
 }
 function pinDel() { state.pin.pop(); updatePinDots('pd', state.pin); }
@@ -3862,14 +3863,16 @@ function buildChart(id, period = 'week') {
   }).join('');
 }
 
-/* ── Splash → Onboarding ── */
-setTimeout(() => showScreen('auth'), 2400);
+/* ── Splash → Auth (moved inside DOMContentLoaded) ── */
 
 /* ── Init ── */
 document.addEventListener('DOMContentLoaded', () => {
   // Always hide nav at start (splash screen)
   const nav = document.getElementById('bottom-nav');
   if (nav) nav.classList.add('hidden');
+
+  // Auto-advance splash → auth
+  setTimeout(() => showScreen('auth'), 2400);
 
   buildHomeTxs();
   buildTxList();
@@ -3916,16 +3919,7 @@ function filterTolovCats(q) {
   });
 }
 
-/* ── Update clocks on new screens ── */
-const _origUpdateClock = updateClock;
-function updateClock() {
-  _origUpdateClock();
-  const n = new Date();
-  const t = n.getHours().toString().padStart(2,'0') + ':' + n.getMinutes().toString().padStart(2,'0');
-  const tolovClock = document.getElementById('tolov-clock');
-  if (tolovClock) tolovClock.textContent = t;
-}
-
+/* removed duplicate */
 
 /* ── Login Tab Switch ── */
 function switchLoginTab(tab) {
@@ -4001,32 +3995,7 @@ function otpTap(v) {
   }
 }
 
-/* ── Update reg step labels ── */
-const REG_LABELS = ['1-qadam: Shaxsiy ma'lumotlar','2-qadam: SMS tasdiqlash','3-qadam: Parol yaratish','4-qadam: PIN-kod o'rnatish'];
-const _origRegStep = regStep;
-function regStep(n) {
-  _origRegStep(n);
-  const lbl = document.getElementById('reg-step-label');
-  if (lbl) lbl.textContent = REG_LABELS[n-1] || '';
-  // Update progress bar segments
-  for (let i = 1; i <= 4; i++) {
-    const seg = document.getElementById('rseg' + i);
-    if (seg) {
-      seg.classList.toggle('done', i < n);
-      seg.classList.toggle('active', i === n);
-    }
-  }
-}
-
-/* ── Update original pin dots to use new circles ── */
-const _origUpdatePinDots = updatePinDots;
-function updatePinDots(prefix, arr) {
-  for (let i = 0; i < 6; i++) {
-    const d = document.getElementById(prefix + i);
-    if (d) d.classList.toggle('filled', i < arr.length);
-  }
-}
-
+/* removed */
 
 /* ══════════════════════════════════
    AUTH FLOW LOGIC
@@ -4086,7 +4055,7 @@ function pinSetupTap(d) {
     if (d2) d2.classList.toggle('filled', i < pinSetupVals.length);
   }
   if (pinSetupVals.length === 6) {
-    setTimeout(() => { showToast('✅','PIN o'rnatildi!'); showScreen('home'); }, 400);
+    setTimeout(() => { showToast('✅','PIN ornatildi!'); showScreen('home'); }, 400);
   }
 }
 function pinSetupDel() {
