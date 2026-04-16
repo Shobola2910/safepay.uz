@@ -1293,6 +1293,244 @@ img { display:block; max-width:100%; }
 .landing-body { flex:1; padding:28px 24px 24px; overflow-y:auto; scrollbar-width:none; }
 .landing-body::-webkit-scrollbar { display:none; }
 
+
+/* ══════════════════════════════════════════
+   RECEIPT SCREEN STYLES
+══════════════════════════════════════════ */
+.receipt-wrap {
+  position:absolute; inset:0;
+  background:var(--navy);
+  display:flex; flex-direction:column;
+  overflow-y:auto; scrollbar-width:none;
+}
+.receipt-wrap::-webkit-scrollbar { display:none; }
+
+.receipt-header {
+  background:linear-gradient(160deg, #0d4a8a 0%, #0a2040 60%, #062030 100%);
+  padding:52px 24px 0; flex-shrink:0;
+  position:relative; overflow:hidden;
+}
+.receipt-header::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 80% at 50% 40%, rgba(14,165,233,.2), transparent 70%);
+}
+.receipt-header-inner {
+  display:flex; align-items:center; justify-content:space-between;
+  position:relative; z-index:1; margin-bottom:24px;
+}
+.receipt-success-badge {
+  display:flex; flex-direction:column; align-items:center;
+  padding:0 0 32px; position:relative; z-index:1;
+}
+.receipt-check-circle {
+  width:70px; height:70px; border-radius:50%;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 28px rgba(34,197,94,.35);
+  margin-bottom:14px;
+  animation:successPop .5s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes successPop {
+  from{transform:scale(0) rotate(-20deg);opacity:0}
+  to{transform:scale(1) rotate(0);opacity:1}
+}
+.receipt-big-amt {
+  font-size:30px; font-weight:800; color:white;
+  letter-spacing:-.5px; font-family:var(--mono);
+}
+
+.receipt-body {
+  background:var(--navy2);
+  margin:0; border-radius:28px 28px 0 0;
+  padding:24px 24px 16px;
+  flex:1;
+  box-shadow:0 -4px 24px rgba(0,0,0,.3);
+  position:relative; z-index:2;
+  margin-top:-20px;
+}
+
+.receipt-logo-row {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:18px;
+}
+.receipt-sp-logo {
+  display:flex; align-items:center; gap:9px;
+}
+.receipt-status-pill {
+  display:flex; align-items:center; gap:6px;
+  background:rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.3);
+  padding:5px 12px; border-radius:20px;
+  font-size:11px; font-weight:700; color:#22c55e;
+}
+
+.receipt-divider-dashed {
+  border:none;
+  border-top:1.5px dashed var(--border);
+  margin:14px 0;
+  position:relative;
+}
+.receipt-divider-dashed::before {
+  content:''; position:absolute;
+  width:20px; height:20px; border-radius:50%;
+  background:var(--navy); top:50%; left:-32px;
+  transform:translateY(-50%);
+}
+.receipt-divider-dashed::after {
+  content:''; position:absolute;
+  width:20px; height:20px; border-radius:50%;
+  background:var(--navy); top:50%; right:-32px;
+  transform:translateY(-50%);
+}
+
+.receipt-rows { display:flex; flex-direction:column; gap:0; }
+.receipt-row {
+  display:flex; justify-content:space-between; align-items:flex-start;
+  padding:11px 0;
+  border-bottom:1px solid var(--border);
+}
+.receipt-row:last-child { border-bottom:none; }
+.receipt-row-label {
+  font-size:13px; color:var(--gray); font-weight:400; flex:1;
+}
+.receipt-row-value {
+  font-size:13px; color:var(--white); font-weight:600;
+  text-align:right; max-width:58%; word-break:break-all;
+}
+.receipt-row-value.mono { font-family:var(--mono); font-size:11px; color:var(--gray); }
+.receipt-row-value.green { color:#22c55e; }
+.receipt-row-value.teal  { color:var(--teal); }
+
+.receipt-actions {
+  display:flex; gap:9px; margin-top:18px; flex-wrap:wrap;
+}
+.receipt-action-btn {
+  flex:1; min-width:80px;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  padding:13px 8px; border-radius:14px;
+  background:var(--navy3); border:1px solid var(--border);
+  color:var(--white); font-size:11px; font-weight:600;
+  cursor:pointer; font-family:var(--font); transition:all .18s;
+}
+.receipt-action-btn:active { transform:scale(.96); }
+.receipt-action-btn.primary-action {
+  background:linear-gradient(135deg,var(--teal),#0284C7);
+  border-color:transparent;
+  box-shadow:0 4px 16px rgba(14,165,233,.3);
+}
+
+.receipt-footer-note {
+  padding:14px 24px 28px;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  font-size:11px; color:var(--gray2); flex-shrink:0;
+}
+
+/* ── Light theme overrides ── */
+body.light-theme .receipt-body { background:#ffffff; }
+body.light-theme .receipt-action-btn { background:#F0F4FF; }
+body.light-theme .receipt-divider-dashed::before,
+body.light-theme .receipt-divider-dashed::after { background:#ffffff; }
+
+/* ══════════════════════════════════════════
+   LANGUAGE & THEME MODALS
+══════════════════════════════════════════ */
+.lang-opt {
+  display:flex; align-items:center; gap:14px;
+  padding:16px 20px; cursor:pointer;
+  border-bottom:1px solid var(--border); transition:background .15s;
+}
+.lang-opt:last-child { border-bottom:none; }
+.lang-opt:active { background:var(--navy3); }
+.lang-opt.active { background:rgba(14,165,233,.08); }
+.lang-opt-flag { font-size:26px; flex-shrink:0; }
+.lang-opt-info { flex:1; }
+.lang-opt-name { font-size:15px; font-weight:600; }
+.lang-opt-native { font-size:12px; color:var(--gray); }
+.lang-check { color:var(--teal); font-size:18px; font-weight:700; }
+
+.theme-opt {
+  display:flex; align-items:center; gap:14px;
+  padding:16px 20px; cursor:pointer;
+  border-bottom:1px solid var(--border); transition:background .15s;
+}
+.theme-opt:last-child { border-bottom:none; }
+.theme-opt:active { background:var(--navy3); }
+.theme-opt.active { background:rgba(14,165,233,.08); }
+.theme-icon {
+  width:46px; height:46px; border-radius:14px;
+  display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0;
+}
+
+/* ══════════════════════════════════════════
+   QR CAMERA SCREEN
+══════════════════════════════════════════ */
+.qr-camera-wrap {
+  position:absolute; inset:0; background:#000;
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.qr-cam-view {
+  flex:1; position:relative; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.qr-cam-overlay {
+  position:absolute; inset:0;
+  background:rgba(0,0,0,.55);
+  display:flex; align-items:center; justify-content:center;
+}
+.qr-cam-cutout {
+  width:240px; height:240px; border-radius:20px;
+  box-shadow:0 0 0 9999px rgba(0,0,0,.55);
+  position:relative;
+}
+.qr-cam-corner {
+  position:absolute; width:26px; height:26px;
+}
+.qr-cam-corner.tl { top:-2px; left:-2px; border-top:3px solid var(--teal); border-left:3px solid var(--teal); border-radius:6px 0 0 0; }
+.qr-cam-corner.tr { top:-2px; right:-2px; border-top:3px solid var(--teal); border-right:3px solid var(--teal); border-radius:0 6px 0 0; }
+.qr-cam-corner.bl { bottom:-2px; left:-2px; border-bottom:3px solid var(--teal); border-left:3px solid var(--teal); border-radius:0 0 0 6px; }
+.qr-cam-corner.br { bottom:-2px; right:-2px; border-bottom:3px solid var(--teal); border-right:3px solid var(--teal); border-radius:0 0 6px 0; }
+.qr-cam-scanline {
+  position:absolute; left:0; right:0; height:2.5px;
+  background:linear-gradient(90deg, transparent, var(--teal), var(--cyan), var(--teal), transparent);
+  box-shadow:0 0 10px var(--teal);
+  animation:qrScanMove 2s ease-in-out infinite;
+}
+@keyframes qrScanMove { 0%,100%{top:8px} 50%{top:calc(100% - 10px)} }
+.qr-cam-hint {
+  position:absolute; bottom:0; left:0; right:0;
+  background:linear-gradient(transparent, rgba(0,0,0,.7));
+  padding:28px 20px 14px; text-align:center;
+  font-size:13px; color:rgba(255,255,255,.75);
+}
+.qr-cam-controls {
+  flex-shrink:0; background:#111;
+  padding:20px 24px 36px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+}
+.qr-cam-btn {
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  cursor:pointer; color:rgba(255,255,255,.7); font-size:11px; font-weight:600;
+}
+.qr-cam-btn-icon {
+  width:52px; height:52px; border-radius:50%;
+  background:rgba(255,255,255,.12);
+  display:flex; align-items:center; justify-content:center;
+}
+.qr-cam-shutter {
+  width:70px; height:70px; border-radius:50%;
+  border:3px solid white;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+}
+.qr-cam-shutter-inner {
+  width:58px; height:58px; border-radius:50%;
+  background:white; transition:all .15s;
+}
+.qr-cam-shutter:active .qr-cam-shutter-inner { background:var(--teal); transform:scale(.9); }
+
+/* Light theme */
+body.light-theme .receipt-row-value { color:#0A1628; }
+body.light-theme .receipt-row-label { color:#4A5568; }
+
 </style>
 </head>
 <body>
@@ -1773,7 +2011,7 @@ img { display:block; max-width:100%; }
           <div class="qa-circle qa-teal">💸</div>
           <div class="qa-label">O'tkazma</div>
         </div>
-        <div class="qa-item" onclick="showScreen('qr-pay')">
+        <div class="qa-item" onclick="openQRCamera()">
           <div class="qa-circle qa-green">📲</div>
           <div class="qa-label">QR To'lov</div>
         </div>
@@ -2017,7 +2255,7 @@ img { display:block; max-width:100%; }
       </div>
     </div>
     <button class="btn btn-ghost btn-full a4" style="margin-bottom:10px" onclick="showToast('📋','Chek ulashildi')">📋 Chekni ulash</button>
-    <button class="btn btn-primary btn-full a5" onclick="showScreen('home')">Bosh sahifaga →</button>
+    <button class="btn btn-primary btn-full a5" onclick="showTransferReceipt('DILSHODBEK ISMATILLAEV','500,000')">Chek ko'rish 🧾</button>
   </div>
 </div>
 
@@ -2064,7 +2302,7 @@ img { display:block; max-width:100%; }
           </div>
         </div>
         <div class="input-wrap" style="margin-bottom:12px"><label class="input-lbl">To'lov summasi</label><input class="inp" type="number" placeholder="0" value="125000"></div>
-        <button class="btn btn-primary btn-full" onclick="showScreen('qr-success')">💳 Hozir to'lash</button>
+        <button class="btn btn-primary btn-full" onclick="simulateQRScan()">💳 Hozir to'lash</button>
       </div>
     </div>
 
@@ -2101,7 +2339,7 @@ img { display:block; max-width:100%; }
         <div style="display:flex;justify-content:space-between"><span class="muted small">Cashback</span><span style="font-size:13px;color:var(--emerald)">+2,500 UZS</span></div>
       </div>
     </div>
-    <button class="btn btn-primary btn-full a4" onclick="showScreen('home')">Bosh sahifaga →</button>
+    <button class="btn btn-primary btn-full a4" onclick="showPaymentReceipt()">Chek ko'rish 🧾</button>
   </div>
 </div>
 
@@ -3115,18 +3353,10 @@ img { display:block; max-width:100%; }
     <div class="modal-handle"></div>
     <div class="h3" style="margin-bottom:16px">Til tanlash</div>
     <div class="list-group">
-      <div class="list-row" onclick="closeModal('language-modal');showToast('🇺🇿','Til: O\'zbek tili')">
+      <div class="list-row" onclick="closeModal('language-modal');openModal('lang-modal')">
         <div class="list-icon">🇺🇿</div>
-        <div class="list-text"><div class="list-title">O'zbek tili</div></div>
-        <div class="dot dot-teal"></div>
-      </div>
-      <div class="list-row" onclick="closeModal('language-modal');showToast('🇷🇺','Til: Rus tili')">
-        <div class="list-icon">🇷🇺</div>
-        <div class="list-text"><div class="list-title">Русский язык</div></div>
-      </div>
-      <div class="list-row" onclick="closeModal('language-modal');showToast('🇬🇧','Til: Ingliz tili')">
-        <div class="list-icon">🇬🇧</div>
-        <div class="list-text"><div class="list-title">English</div></div>
+        <div class="list-text"><div class="list-title" id="cur-lang-label">O'zbek tili</div></div>
+        <div class="list-end">›</div>
       </div>
     </div>
   </div>
@@ -3597,9 +3827,398 @@ img { display:block; max-width:100%; }
   </div>
 </div>
 
+
+<!-- ═══════════════════════════════
+     SCREEN: PAYMENT RECEIPT (Uzum-style)
+═══════════════════════════════ -->
+<div class="screen" id="payment-receipt">
+  <div class="receipt-wrap">
+    <!-- Header -->
+    <div class="receipt-header">
+      <div class="receipt-header-inner">
+        <div class="back-btn" onclick="goBack()" style="background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </div>
+        <span style="font-size:17px;font-weight:700;color:white" data-t="receiptTitle">To'lov cheki</span>
+        <div style="width:36px;display:flex;justify-content:flex-end">
+          <div onclick="downloadReceipt()" style="cursor:pointer;opacity:.9">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+        </div>
+      </div>
+      <!-- Success circle -->
+      <div class="receipt-success-badge">
+        <div class="receipt-check-circle">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div id="receipt-success-amt" class="receipt-big-amt">64,000.00 UZS</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.75);margin-top:3px" id="receipt-success-label">Muvaffaqiyatli o'tkazildi</div>
+      </div>
+    </div>
+
+    <!-- Card body -->
+    <div class="receipt-body">
+      <!-- SafePay Logo -->
+      <div class="receipt-logo-row">
+        <div class="receipt-sp-logo">
+          <div style="width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#0d4a8a,#0a2040);border:1.5px solid rgba(14,165,233,.5);display:flex;align-items:center;justify-content:center;font-size:16px">💎</div>
+          <span style="font-size:16px;font-weight:800;letter-spacing:-.3px">Safe<span style="color:var(--teal)">Pay</span>.uz</span>
+        </div>
+        <div class="receipt-status-pill">
+          <span style="width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;display:inline-block"></span>
+          Tasdiqlandi
+        </div>
+      </div>
+
+      <div class="receipt-divider-dashed"></div>
+
+      <!-- Receipt rows -->
+      <div class="receipt-rows" id="receipt-rows-container">
+        <!-- filled dynamically -->
+      </div>
+
+      <div class="receipt-divider-dashed"></div>
+
+      <!-- Action buttons -->
+      <div class="receipt-actions">
+        <button class="receipt-action-btn" onclick="shareReceipt()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          <span data-t="shareReceipt">Ulashish</span>
+        </button>
+        <button class="receipt-action-btn" onclick="downloadReceipt()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span data-t="download">Yuklab olish</span>
+        </button>
+        <button class="receipt-action-btn primary-action" onclick="showScreen('home')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          <span style="color:white" data-t="backHome">Bosh sahifaga</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Bottom note -->
+    <div class="receipt-footer-note">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      SafePay.uz tomonidan himoyalangan to'lov
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════
+     SCREEN: QR CAMERA SCANNER
+═══════════════════════════════ -->
+<div class="screen" id="qr-camera">
+  <div class="qr-camera-wrap">
+    <!-- Top bar -->
+    <div style="position:absolute;top:0;left:0;right:0;z-index:10;padding:52px 20px 14px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(0,0,0,.7),transparent)">
+      <div onclick="goBack()" style="width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;cursor:pointer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      </div>
+      <span style="font-size:16px;font-weight:700;color:white">QR Skanerlash</span>
+      <div onclick="toggleFlash()" id="flash-btn" style="width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;cursor:pointer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+    </div>
+
+    <!-- Camera view -->
+    <div class="qr-cam-view">
+      <!-- Real camera stream -->
+      <video id="qr-video" autoplay playsinline muted style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
+      <!-- Overlay -->
+      <div class="qr-cam-overlay">
+        <div class="qr-cam-cutout">
+          <div class="qr-cam-corner tl"></div>
+          <div class="qr-cam-corner tr"></div>
+          <div class="qr-cam-corner bl"></div>
+          <div class="qr-cam-corner br"></div>
+          <div class="qr-cam-scanline" id="qr-scanline"></div>
+        </div>
+      </div>
+      <div class="qr-cam-hint">Kamerani QR-kodga yo'naltiring · Avtomatik skanerlash</div>
+    </div>
+
+    <!-- Controls -->
+    <div class="qr-cam-controls">
+      <div class="qr-cam-btn" onclick="openGallery()">
+        <div class="qr-cam-btn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <span style="color:rgba(255,255,255,.7);font-size:11px">Galereya</span>
+      </div>
+
+      <div class="qr-cam-shutter" onclick="simulateQRScan()">
+        <div class="qr-cam-shutter-inner"></div>
+      </div>
+
+      <div class="qr-cam-btn" onclick="showQRMyCode()">
+        <div class="qr-cam-btn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><rect x="19" y="14" width="2" height="2"/><rect x="17" y="19" width="4" height="2"/><rect x="14" y="17" width="2" height="4"/></svg>
+        </div>
+        <span style="color:rgba(255,255,255,.7);font-size:11px">Mening QR</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Language Modal -->
+<div class="modal-overlay" id="lang-modal" onclick="closeModalOnBg(event,'lang-modal')">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="h3" style="margin-bottom:4px">Til tanlash</div>
+    <div class="muted small" style="margin-bottom:16px">Choose language · Выберите язык</div>
+    <div style="background:var(--navy3);border-radius:16px;overflow:hidden;border:1px solid var(--border)">
+      <div class="lang-opt" id="lang-opt-uz" onclick="setLang('uz')">
+        <span class="lang-opt-flag">🇺🇿</span>
+        <div class="lang-opt-info">
+          <div class="lang-opt-name">O'zbek tili</div>
+          <div class="lang-opt-native">Uzbek</div>
+        </div>
+        <span class="lang-check" id="lc-uz">✓</span>
+      </div>
+      <div class="lang-opt" id="lang-opt-ru" onclick="setLang('ru')">
+        <span class="lang-opt-flag">🇷🇺</span>
+        <div class="lang-opt-info">
+          <div class="lang-opt-name">Русский язык</div>
+          <div class="lang-opt-native">Russian</div>
+        </div>
+        <span class="lang-check" id="lc-ru" style="display:none">✓</span>
+      </div>
+      <div class="lang-opt" id="lang-opt-en" onclick="setLang('en')">
+        <span class="lang-opt-flag">🇬🇧</span>
+        <div class="lang-opt-info">
+          <div class="lang-opt-name">English</div>
+          <div class="lang-opt-native">English</div>
+        </div>
+        <span class="lang-check" id="lc-en" style="display:none">✓</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Theme Modal -->
+<div class="modal-overlay" id="theme-modal" onclick="closeModalOnBg(event,'theme-modal')">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="h3" style="margin-bottom:4px">Ko'rinish</div>
+    <div class="muted small" style="margin-bottom:16px">Mavzuni tanlang</div>
+    <div style="background:var(--navy3);border-radius:16px;overflow:hidden;border:1px solid var(--border)">
+      <div class="theme-opt" id="theme-opt-dark" onclick="setTheme('dark')">
+        <div class="theme-icon" style="background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.2)">🌙</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:600">Tungi rejim</div>
+          <div style="font-size:12px;color:var(--gray)">Dark Mode</div>
+        </div>
+        <span class="lang-check" id="tc-dark">✓</span>
+      </div>
+      <div class="theme-opt" id="theme-opt-light" onclick="setTheme('light')">
+        <div class="theme-icon" style="background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.2)">☀️</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:600">Kunduzgi rejim</div>
+          <div style="font-size:12px;color:var(--gray)">Light Mode</div>
+        </div>
+        <span class="lang-check" id="tc-light" style="display:none">✓</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div><!-- /#app-frame -->
 
 <script>
+
+/* ══════════════════════════════════════════
+   TRANSLATIONS — UZ / RU / EN
+══════════════════════════════════════════ */
+const LANGS = {
+  uz: {
+    appName:'SafePay.uz', tagline:'XAVFSIZ · TEZ · OSON',
+    home:'Bosh sahifa', payments:'Toʻlovlar', analytics:'Analitika',
+    activity:'Faollik', profile:'Profil',
+    balance:'Umumiy balans', myWallet:'Mening hamyonim',
+    send:'Oʼtkazma', qr:'QR Toʻlov', topup:'Toʻldirish', bills:'Toʻlovlar',
+    cards:'Kartalar', security:'Xavfsizlik', device:'Qurilma',
+    recentTx:'Oxirgi tranzaksiyalar', seeAll:'Barchasi →',
+    weeklySpend:'Haftalik xarajatlar', cashback:'Cashback balansi',
+    welcome:'Xush kelibsiz 👋',
+    loginTitle:'Qayta xush kelibsiz!', loginSub:'Telefon raqamingizni kiriting',
+    signIn:'Hisobga kirish', signUp:'Roʻyxatdan oʻtish',
+    demo:'Demo rejimda koʻrish', help:'Yordam kerakmi?',
+    noAccount:'Hisob yoʻqmi?', hasAccount:'Hisob bormi?',
+    register:'Roʻyxatdan oʻting',
+    continueBtn:'Davom etish', verify:'Tasdiqlash',
+    otpSent:'OTP Yuborildi!', resendOtp:'OTP ni qayta yuborish',
+    pinTitle:'PIN-kod kiriting', pinSetup:'PIN-kod oʻrnatish',
+    firstName:'Ism', lastName:'Familiya', phone:'Telefon raqam',
+    email:'Email manzil', password:'Parol', confirmPass:'Parolni tasdiqlang',
+    forgotPass:'Parolni unutdingizmi?', resetPass:'Parolni tiklash',
+    sendLink:'Havola yuborish',
+    dark:'Tungi rejim', light:'Kunduzgi rejim',
+    language:'Til',
+    qrScan:'QR Skanerlash', qrShow:'QR Koʻrsatish',
+    payNow:'Hozir toʻlash', paySuccess:'Toʻlov muvaffaqiyatli!',
+    backHome:'Bosh sahifaga →',
+    sender:'Joʻnatuvchi', receiver:'Qabul qiluvchi',
+    senderName:'Joʻnatuvchi ismi', receiverName:'Qabul qiluvchi ismi',
+    txId:'Tranzaksiya ID', txDate:'Tranzaksiya sanasi',
+    receivedDate:'Qabul qilingan sana', receiverFee:'Qabul qiluvchi komissiya',
+    receiverAmt:'Qabul qilingan summa', senderFee:'Joʻnatuvchi komissiya',
+    senderAmt:'Joʻnatilgan summa', shareReceipt:'Ulashish', download:'Yuklab olish',
+    vaqf:'Xayriya (VAQF)', miniApps:'Mini Ilovalar',
+    settings:'Sozlamalar', logout:'Chiqish',
+    notifications:'Bildirishnomalar',
+  },
+  ru: {
+    appName:'SafePay.uz', tagline:'БЕЗОПАСНО · БЫСТРО · ПРОСТО',
+    home:'Главная', payments:'Платежи', analytics:'Аналитика',
+    activity:'Активность', profile:'Профиль',
+    balance:'Общий баланс', myWallet:'Мой кошелёк',
+    send:'Перевод', qr:'QR Оплата', topup:'Пополнение', bills:'Платежи',
+    cards:'Карты', security:'Безопасность', device:'Устройство',
+    recentTx:'Последние транзакции', seeAll:'Все →',
+    weeklySpend:'Расходы за неделю', cashback:'Кэшбэк баланс',
+    welcome:'Добро пожаловать 👋',
+    loginTitle:'С возвращением!', loginSub:'Введите номер телефона',
+    signIn:'Войти в аккаунт', signUp:'Зарегистрироваться',
+    demo:'Демо режим', help:'Нужна помощь?',
+    noAccount:'Нет аккаунта?', hasAccount:'Есть аккаунт?',
+    register:'Зарегистрироваться',
+    continueBtn:'Продолжить', verify:'Подтвердить',
+    otpSent:'OTP отправлен!', resendOtp:'Отправить OTP снова',
+    pinTitle:'Введите PIN-код', pinSetup:'Установить PIN-код',
+    firstName:'Имя', lastName:'Фамилия', phone:'Номер телефона',
+    email:'Email адрес', password:'Пароль', confirmPass:'Повторите пароль',
+    forgotPass:'Забыли пароль?', resetPass:'Восстановить пароль',
+    sendLink:'Отправить ссылку',
+    dark:'Тёмная тема', light:'Светлая тема',
+    language:'Язык',
+    qrScan:'Сканировать QR', qrShow:'Показать QR',
+    payNow:'Оплатить сейчас', paySuccess:'Оплата успешна!',
+    backHome:'На главную →',
+    sender:'Отправитель', receiver:'Получатель',
+    senderName:'Имя отправителя', receiverName:'Имя получателя',
+    txId:'ID транзакции', txDate:'Дата транзакции',
+    receivedDate:'Дата получения', receiverFee:'Комиссия получателя',
+    receiverAmt:'Сумма получателя', senderFee:'Комиссия отправителя',
+    senderAmt:'Сумма отправителя', shareReceipt:'Поделиться', download:'Скачать',
+    vaqf:'Благотворительность (ВАКФ)', miniApps:'Мини Приложения',
+    settings:'Настройки', logout:'Выйти',
+    notifications:'Уведомления',
+  },
+  en: {
+    appName:'SafePay.uz', tagline:'SECURE · FAST · EASY',
+    home:'Home', payments:'Payments', analytics:'Analytics',
+    activity:'Activity', profile:'Profile',
+    balance:'Total Balance', myWallet:'My Wallet',
+    send:'Transfer', qr:'QR Payment', topup:'Top Up', bills:'Bills',
+    cards:'Cards', security:'Security', device:'Device',
+    recentTx:'Recent Transactions', seeAll:'See all →',
+    weeklySpend:'Weekly Spending', cashback:'Cashback Balance',
+    welcome:'Welcome 👋',
+    loginTitle:'Welcome back!', loginSub:'Enter your registered phone number',
+    signIn:'Sign In', signUp:'Sign Up',
+    demo:'Continue as Demo', help:'Need help?',
+    noAccount:'No account?', hasAccount:'Have an account?',
+    register:'Register',
+    continueBtn:'Continue', verify:'Verify',
+    otpSent:'OTP Sent!', resendOtp:'Resend OTP',
+    pinTitle:'Enter PIN Code', pinSetup:'Set Up PIN Code',
+    firstName:'First name', lastName:'Last name', phone:'Phone number',
+    email:'Email address', password:'Password', confirmPass:'Confirm password',
+    forgotPass:'Forgot password?', resetPass:'Reset Password',
+    sendLink:'Send Link',
+    dark:'Dark Mode', light:'Light Mode',
+    language:'Language',
+    qrScan:'Scan QR', qrShow:'Show QR',
+    payNow:'Pay Now', paySuccess:'Payment Successful!',
+    backHome:'Back to Home →',
+    sender:'Sender', receiver:'Receiver',
+    senderName:'Sender name', receiverName:'Receiver name',
+    txId:'Transaction ID', txDate:'Transaction date',
+    receivedDate:'Received date', receiverFee:'Receiver fee',
+    receiverAmt:'Receiver amount', senderFee:'Sender fee',
+    senderAmt:'Sender amount', shareReceipt:'Share', download:'Download',
+    vaqf:'Charity (WAQF)', miniApps:'Mini Apps',
+    settings:'Settings', logout:'Sign Out',
+    notifications:'Notifications',
+  }
+};
+
+let currentLang = localStorage.getItem('sp_lang') || 'uz';
+let currentTheme = localStorage.getItem('sp_theme') || 'dark';
+
+function t(key) {
+  return LANGS[currentLang][key] || LANGS['uz'][key] || key;
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('sp_lang', lang);
+  applyLang();
+  showToast('🌐', lang === 'uz' ? "Oʻzbek tili" : lang === 'ru' ? 'Русский язык' : 'English');
+  // Close modal if open
+  closeModal('lang-modal');
+}
+
+function applyLang() {
+  // Nav tabs
+  const navLabels = { home: t('home'), payments: t('payments'), analytics: t('analytics'), activity: t('activity'), profile: t('profile') };
+  Object.entries(navLabels).forEach(([id, lbl]) => {
+    const tab = document.getElementById('tab-' + id);
+    if (tab) { const span = tab.querySelector('span'); if (span) span.textContent = lbl; }
+  });
+  // Data attributes
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const key = el.getAttribute('data-t');
+    if (LANGS[currentLang][key]) el.textContent = LANGS[currentLang][key];
+  });
+  // Splash tagline
+  const tagEl = document.querySelector('.splash-tagline');
+  if (tagEl) tagEl.textContent = t('tagline');
+}
+
+/* ══════════════════════════════════════════
+   THEME — DARK / LIGHT
+══════════════════════════════════════════ */
+const DARK_VARS = {
+  '--navy':'#0A1628','--navy2':'#0F1F3D','--navy3':'#172847',
+  '--white':'#F8FAFC','--gray':'#94A3B8','--gray2':'#64748B','--gray3':'#334155',
+  '--surface':'rgba(15,31,61,0.95)','--glass':'rgba(255,255,255,0.06)',
+  '--glass2':'rgba(255,255,255,0.10)','--border':'rgba(255,255,255,0.08)',
+  '--border2':'rgba(14,165,233,0.25)',
+};
+const LIGHT_VARS = {
+  '--navy':'#F0F4FF','--navy2':'#FFFFFF','--navy3':'#E8EEF8',
+  '--white':'#0A1628','--gray':'#4A5568','--gray2':'#718096','--gray3':'#CBD5E0',
+  '--surface':'rgba(240,244,255,0.98)','--glass':'rgba(0,0,0,0.04)',
+  '--glass2':'rgba(0,0,0,0.06)','--border':'rgba(0,0,0,0.08)',
+  '--border2':'rgba(14,165,233,0.35)',
+};
+
+function setTheme(theme) {
+  currentTheme = theme;
+  localStorage.setItem('sp_theme', theme);
+  applyTheme();
+  showToast(theme === 'dark' ? '🌙' : '☀️', t(theme));
+  closeModal('theme-modal');
+}
+
+function applyTheme() {
+  const vars = currentTheme === 'dark' ? DARK_VARS : LIGHT_VARS;
+  const root = document.documentElement;
+  Object.entries(vars).forEach(([k, v]) => root.style.setProperty(k, v));
+  // Update meta theme-color
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.content = currentTheme === 'dark' ? '#0A1628' : '#F0F4FF';
+  // Toggle body class for additional light overrides
+  document.body.classList.toggle('light-theme', currentTheme === 'light');
+}
+
+function toggleTheme() {
+  setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+}
+
 /* ══════════════════════════════════════
    SAFEPAY.UZ — CORE APP LOGIC
 ══════════════════════════════════════ */
@@ -3822,7 +4441,7 @@ function buildTxList(filter = 'all') {
     `<div style="text-align:center;padding:40px 20px">
       <div style="font-size:40px;margin-bottom:12px">📭</div>
       <div style="font-size:14px;font-weight:600;margin-bottom:6px">Tranzaksiya topilmadi</div>
-      <div class="muted small">Bu kategoriyada ma'lumot yo'q</div>
+      <div class="muted small">Bu kategoriyada maʼlumot yoʻq</div>
     </div>`;
 }
 
@@ -3873,6 +4492,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Auto-advance splash → auth
   setTimeout(() => showScreen('auth'), 2400);
+
+  // Init language and theme from localStorage
+  applyTheme();
+  applyLang();
+  updateLangChecks();
+  updateThemeChecks();
 
   buildHomeTxs();
   buildTxList();
@@ -4121,6 +4746,253 @@ function togglePassField(id, icon) {
 
 /* ─ PIN Setup Screen (inserted dynamically after OTP) ─ */
 // showScreen will handle pin-setup if it exists
+
+
+/* ══════════════════════════════════════════
+   RECEIPT FUNCTIONS
+══════════════════════════════════════════ */
+const RECEIPT_LABELS = {
+  uz: { sender:'Joʻnatuvchi', senderName:'Joʻnatuvchi ismi', receiver:'Qabul qiluvchi', receiverName:'Qabul qiluvchi ismi', txId:'Tranzaksiya ID', txDate:'Tranzaksiya sanasi', receivedDate:'Qabul qilingan sana', receiverFee:'Komissiya (qabul)', receiverAmt:'Summa (qabul)', senderFee:'Komissiya (joʻnatma)', senderAmt:'Joʻnatilgan summa' },
+  ru: { sender:'Отправитель', senderName:'Имя отправителя', receiver:'Получатель', receiverName:'Имя получателя', txId:'ID транзакции', txDate:'Дата транзакции', receivedDate:'Дата получения', receiverFee:'Комиссия (получ.)', receiverAmt:'Сумма (получ.)', senderFee:'Комиссия (отпр.)', senderAmt:'Сумма (отпр.)' },
+  en: { sender:'Sender', senderName:'Sender name', receiver:'Receiver', receiverName:'Receiver name', txId:'Transaction ID', txDate:'Transaction date', receivedDate:'Received date', receiverFee:'Receiver fee', receiverAmt:'Receiver amount', senderFee:'Sender fee', senderAmt:'Sender amount' }
+};
+
+function showPaymentReceipt(data) {
+  const lang = currentLang;
+  const L = RECEIPT_LABELS[lang] || RECEIPT_LABELS.uz;
+
+  // Default data if none passed
+  data = data || {
+    sender: '986035*****1607',
+    senderName: 'ISMOILBEK SHORUSTAMOV',
+    receiver: '860031*****2618',
+    receiverName: 'DILSHODBEK ISMATILLAEV',
+    txId: '3e4defdf-174b-47df-9612-608f424188f3',
+    txDate: new Date().toLocaleDateString('ru') + ' ' + new Date().toLocaleTimeString('ru'),
+    receivedDate: new Date().toLocaleDateString('ru') + ' ' + new Date().toLocaleTimeString('ru'),
+    receiverFee: '0.00 UZS',
+    receiverAmt: '64,000.00 UZS',
+    senderFee: '640.00 UZS',
+    senderAmt: '64,000.00 UZS',
+  };
+
+  // Set big amount
+  const amtEl = document.getElementById('receipt-success-amt');
+  const lblEl = document.getElementById('receipt-success-label');
+  if (amtEl) amtEl.textContent = data.senderAmt;
+  if (lblEl) lblEl.textContent = lang === 'ru' ? 'Успешно переведено' : lang === 'en' ? 'Successfully transferred' : 'Muvaffaqiyatli oʻtkazildi';
+
+  // Build rows
+  const rows = [
+    [L.sender,       data.sender,       'mono'],
+    [L.senderName,   data.senderName,   'bold'],
+    [L.receiver,     data.receiver,     'mono'],
+    [L.receiverName, data.receiverName, 'bold'],
+    [L.txId,         data.txId,         'mono small'],
+    [L.txDate,       data.txDate,       ''],
+    [L.receivedDate, data.receivedDate, ''],
+    [L.receiverFee,  data.receiverFee,  data.receiverFee === '0.00 UZS' ? 'green' : ''],
+    [L.receiverAmt,  data.receiverAmt,  'teal'],
+    [L.senderFee,    data.senderFee,    ''],
+    [L.senderAmt,    data.senderAmt,    'teal'],
+  ];
+
+  const container = document.getElementById('receipt-rows-container');
+  if (container) {
+    container.innerHTML = rows.map(([label, value, cls]) => `
+      <div class="receipt-row">
+        <span class="receipt-row-label">${label}</span>
+        <span class="receipt-row-value ${cls || ''}">${value}</span>
+      </div>
+    `).join('');
+  }
+  showScreen('payment-receipt');
+}
+
+function shareReceipt() {
+  if (navigator.share) {
+    navigator.share({ title: 'SafePay.uz — Toʻlov cheki', text: 'SafePay.uz orqali toʻlov amalga oshirildi.', url: window.location.href })
+      .catch(() => {});
+  } else {
+    showToast('📋', lang === 'ru' ? 'Чек скопирован!' : 'Chek nusxalandi!');
+  }
+}
+
+function downloadReceipt() {
+  showToast('📥', currentLang === 'ru' ? 'Чек сохранён!' : currentLang === 'en' ? 'Receipt saved!' : 'Chek saqlandi!');
+}
+
+/* ══════════════════════════════════════════
+   QR CAMERA FUNCTIONS
+══════════════════════════════════════════ */
+let cameraStream = null;
+let flashOn = false;
+let qrScanTimer = null;
+
+function openQRCamera() {
+  showScreen('qr-camera');
+  // Start camera after short delay (screen transition)
+  setTimeout(startCamera, 350);
+}
+
+function startCamera() {
+  const video = document.getElementById('qr-video');
+  if (!video) return;
+
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+    })
+    .then(stream => {
+      cameraStream = stream;
+      video.srcObject = stream;
+      video.play();
+      // Simulate QR detection after 3s for demo
+      qrScanTimer = setTimeout(() => {
+        if (document.getElementById('qr-camera').classList.contains('active')) {
+          simulateQRScan();
+        }
+      }, 4000);
+    })
+    .catch(err => {
+      console.log('Camera error:', err);
+      showToast('📷', currentLang === 'ru' ? 'Камера недоступна — демо режим' : currentLang === 'en' ? 'Camera unavailable — demo mode' : 'Kamera yoʻq — demo rejim');
+      // Still simulate scan for demo
+      qrScanTimer = setTimeout(simulateQRScan, 3000);
+    });
+  } else {
+    showToast('📷', 'Demo rejim');
+    qrScanTimer = setTimeout(simulateQRScan, 3000);
+  }
+}
+
+function stopCamera() {
+  if (cameraStream) {
+    cameraStream.getTracks().forEach(t => t.stop());
+    cameraStream = null;
+  }
+  if (qrScanTimer) { clearTimeout(qrScanTimer); qrScanTimer = null; }
+}
+
+function simulateQRScan() {
+  stopCamera();
+  showToast('✅', currentLang === 'ru' ? 'QR-код распознан!' : currentLang === 'en' ? 'QR code detected!' : 'QR-kod aniqlandi!');
+  // Show payment confirmation then receipt
+  setTimeout(() => {
+    showPaymentReceipt({
+      sender: '986035*****1607',
+      senderName: 'ISMOILBEK SHORUSTAMOV',
+      receiver: '860031*****2618',
+      receiverName: 'KORZINKA #42',
+      txId: 'QR-' + Date.now().toString(16).toUpperCase(),
+      txDate: new Date().toLocaleString(),
+      receivedDate: new Date().toLocaleString(),
+      receiverFee: '0.00 UZS',
+      receiverAmt: '125,000.00 UZS',
+      senderFee: '1,250.00 UZS',
+      senderAmt: '125,000.00 UZS',
+    });
+  }, 600);
+}
+
+function toggleFlash() {
+  flashOn = !flashOn;
+  const btn = document.getElementById('flash-btn');
+  if (btn) btn.style.background = flashOn ? 'rgba(255,220,0,.4)' : 'rgba(255,255,255,.15)';
+  if (cameraStream) {
+    const track = cameraStream.getVideoTracks()[0];
+    if (track && track.getCapabilities && track.getCapabilities().torch) {
+      track.applyConstraints({ advanced: [{ torch: flashOn }] }).catch(() => {});
+    }
+  }
+  showToast(flashOn ? '🔦' : '💡', flashOn ? 'Flash yoqildi' : 'Flash oʻchirildi');
+}
+
+function openGallery() {
+  showToast('🖼️', currentLang === 'ru' ? 'Галерея открывается...' : 'Galereya ochilmoqda...');
+}
+
+function showQRMyCode() {
+  stopCamera();
+  showScreen('qr-pay');
+  setTimeout(() => showQRTab('show'), 100);
+}
+
+/* ══════════════════════════════════════════
+   LANGUAGE & THEME INIT
+══════════════════════════════════════════ */
+function updateLangChecks() {
+  ['uz','ru','en'].forEach(l => {
+    const el = document.getElementById('lc-' + l);
+    if (el) el.style.display = l === currentLang ? 'block' : 'none';
+    const opt = document.getElementById('lang-opt-' + l);
+    if (opt) opt.classList.toggle('active', l === currentLang);
+  });
+  // Update label in old language modal
+  const labels = { uz:"Oʻzbek tili", ru:'Русский язык', en:'English' };
+  const curLabel = document.getElementById('cur-lang-label');
+  if (curLabel) curLabel.textContent = labels[currentLang];
+}
+
+function updateThemeChecks() {
+  const isDark = currentTheme === 'dark';
+  const td = document.getElementById('tc-dark');
+  const tl = document.getElementById('tc-light');
+  if (td) td.style.display = isDark ? 'block' : 'none';
+  if (tl) tl.style.display = !isDark ? 'block' : 'none';
+  const od = document.getElementById('theme-opt-dark');
+  const ol = document.getElementById('theme-opt-light');
+  if (od) od.classList.toggle('active', isDark);
+  if (ol) ol.classList.toggle('active', !isDark);
+}
+
+const _origSetLang = setLang;
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('sp_lang', lang);
+  applyLang();
+  updateLangChecks();
+  closeModal('lang-modal');
+  const names = { uz:"Oʻzbek tili tanlandi", ru:'Выбран русский язык', en:'English selected' };
+  showToast('🌐', names[lang]);
+}
+
+const _origSetTheme = setTheme;
+function setTheme(theme) {
+  currentTheme = theme;
+  localStorage.setItem('sp_theme', theme);
+  applyTheme();
+  updateThemeChecks();
+  closeModal('theme-modal');
+  showToast(theme === 'dark' ? '🌙' : '☀️', theme === 'dark' ? 'Tungi rejim' : 'Kunduzgi rejim');
+}
+
+/* Stop camera when leaving qr-camera screen */
+const _origShowScreen = showScreen;
+function showScreen(id) {
+  // Stop camera if leaving qr-camera
+  if (state.currentScreen === 'qr-camera' && id !== 'qr-camera') {
+    stopCamera();
+  }
+  _origShowScreen(id);
+}
+
+/* Also show receipt after transfer success */
+function showTransferReceipt(toName, amt) {
+  showPaymentReceipt({
+    sender: '986035*****1607',
+    senderName: 'ISMOILBEK SHORUSTAMOV',
+    receiver: '860031*****2618',
+    receiverName: toName || 'DILSHODBEK ISMATILLAEV',
+    txId: 'TXN-' + Date.now().toString(16).toUpperCase(),
+    txDate: new Date().toLocaleString(),
+    receivedDate: new Date().toLocaleString(),
+    receiverFee: '0.00 UZS',
+    receiverAmt: (amt || '500,000') + '.00 UZS',
+    senderFee: '5,000.00 UZS',
+    senderAmt: (amt || '500,000') + '.00 UZS',
+  });
+}
 
 </script>
 </body>
