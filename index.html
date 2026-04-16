@@ -1531,6 +1531,94 @@ body.light-theme .receipt-divider-dashed::after { background:#ffffff; }
 body.light-theme .receipt-row-value { color:#0A1628; }
 body.light-theme .receipt-row-label { color:#4A5568; }
 
+
+/* ══════════════════════════════════════════
+   LIGHT THEME — Full Override
+══════════════════════════════════════════ */
+body.light-theme {
+  background: #F0F4FF !important;
+  color: #0A1628 !important;
+}
+body.light-theme #app-frame,
+body.light-theme .screen {
+  background: #F0F4FF !important;
+}
+body.light-theme .card,
+body.light-theme .card-teal {
+  background: #FFFFFF !important;
+  border-color: rgba(0,0,0,.08) !important;
+  color: #0A1628 !important;
+}
+body.light-theme .list-group,
+body.light-theme .list-row {
+  background: #FFFFFF !important;
+  border-color: rgba(0,0,0,.07) !important;
+  color: #0A1628 !important;
+}
+body.light-theme .modal-sheet {
+  background: #FFFFFF !important;
+}
+body.light-theme #bottom-nav,
+body.light-theme .top-bar,
+body.light-theme .status-bar {
+  background: #FFFFFF !important;
+  border-color: rgba(0,0,0,.08) !important;
+  color: #0A1628 !important;
+}
+body.light-theme .inp {
+  background: #F0F4FF !important;
+  color: #0A1628 !important;
+  border-color: rgba(0,0,0,.12) !important;
+}
+body.light-theme .nav-tab span,
+body.light-theme .muted { color: #4A5568 !important; }
+body.light-theme .nav-tab svg,
+body.light-theme .icon-btn svg { stroke: #4A5568 !important; }
+body.light-theme .nav-tab.active { color: var(--teal) !important; }
+body.light-theme .nav-tab.active svg { stroke: var(--teal) !important; }
+body.light-theme .balance-lbl,
+body.light-theme .balance-change { color: rgba(10,22,40,.7) !important; }
+body.light-theme .balance-amt { color: #0A1628 !important; }
+body.light-theme .qa-item {
+  background: #FFFFFF !important;
+  border-color: rgba(0,0,0,.08) !important;
+}
+body.light-theme .qa-label { color: #4A5568 !important; }
+body.light-theme .h2,.light-theme .h3,.light-theme .h4 { color: #0A1628 !important; }
+body.light-theme .sec-title { color: #0A1628 !important; }
+body.light-theme .auth-wrap,
+body.light-theme .auth-landing,
+body.light-theme .login-screen-wrap { background: #F0F4FF !important; }
+body.light-theme .auth-title { color: #0A1628 !important; }
+body.light-theme .auth-field input,
+body.light-theme .auth-phone-row { background: #FFFFFF !important; border-color: rgba(0,0,0,.12) !important; color: #0A1628 !important; }
+body.light-theme .auth-phone-flag { color: #4A5568 !important; }
+body.light-theme .auth-option { background: #FFFFFF !important; border-color: rgba(0,0,0,.08) !important; }
+body.light-theme .auth-option-title { color: #0A1628 !important; }
+body.light-theme .auth-option-sub { color: #4A5568 !important; }
+body.light-theme .lang-opt,
+body.light-theme .theme-opt { background: transparent !important; }
+body.light-theme .btn-ghost {
+  background: rgba(0,0,0,.05) !important;
+  color: #0A1628 !important;
+  border-color: rgba(0,0,0,.1) !important;
+}
+body.light-theme .progress-bar { background: #E2E8F0 !important; }
+body.light-theme .chart-bar .bar-gray { background: rgba(0,0,0,.1) !important; }
+body.light-theme .tx-item { background: transparent !important; }
+body.light-theme .tx-name { color: #0A1628 !important; }
+body.light-theme .tx-meta { color: #718096 !important; }
+body.light-theme .receipt-body { background: #FFFFFF !important; }
+body.light-theme .receipt-row-label { color: #718096 !important; }
+body.light-theme .receipt-row-value { color: #0A1628 !important; }
+body.light-theme .receipt-action-btn { background: #F0F4FF !important; border-color: rgba(0,0,0,.1) !important; color: #0A1628 !important; }
+body.light-theme .new-splash,
+body.light-theme .landing-hero { background: linear-gradient(160deg, #c8d8f0 0%, #d8e8ff 100%) !important; }
+body.light-theme .splash-wordmark,
+body.light-theme .landing-title { color: #0A1628 !important; }
+body.light-theme .splash-tagline,
+body.light-theme .landing-sub { color: #4A5568 !important; }
+
 </style>
 </head>
 <body>
@@ -1970,7 +2058,7 @@ body.light-theme .receipt-row-label { color:#4A5568; }
   <!-- Top bar -->
   <div style="display:flex;align-items:center;justify-content:space-between;padding:0 20px 12px;flex-shrink:0;">
     <div>
-      <div style="font-size:12px;color:var(--gray);margin-bottom:2px">Xush kelibsiz 👋</div>
+      <div style="font-size:12px;color:var(--gray);margin-bottom:2px" data-t="welcome">Xush kelibsiz 👋</div>
       <div style="font-size:18px;font-weight:700">Ismoilbek Shorustamov</div>
     </div>
     <div style="display:flex;gap:8px">
@@ -1987,19 +2075,19 @@ body.light-theme .receipt-row-label { color:#4A5568; }
     <!-- Balance Card -->
     <div class="dash-balance-card a1">
       <div class="card-teal">
-        <div class="balance-lbl">Umumiy balans</div>
+        <div class="balance-lbl" data-t="balance">Umumiy balans</div>
         <div class="balance-amt" id="balance-display">12,450,000 UZS</div>
         <div class="balance-change">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><path d="M7 17l10-10M7 7h10v10"/></svg>
-          +3.2% bu oy
+          <span data-t="thisMonth">+3.2% bu oy</span>
         </div>
         <div class="primary-card-mini">
           <span style="font-size:16px">💳</span>
           <div>
             <div style="font-size:12px;font-weight:600">Humo •••• 4521</div>
-            <div style="font-size:10px;color:var(--gray)">Asosiy karta</div>
+            <div style="font-size:10px;color:var(--gray)" data-t="primaryCard">Asosiy karta</div>
           </div>
-          <div class="pill pill-green" style="margin-left:auto;font-size:9px">Faol</div>
+          <div class="pill pill-green" style="margin-left:auto;font-size:9px" data-t="active">Faol</div>
         </div>
       </div>
     </div>
@@ -2009,43 +2097,43 @@ body.light-theme .receipt-row-label { color:#4A5568; }
       <div class="qa-grid">
         <div class="qa-item" onclick="showScreen('transfer')">
           <div class="qa-circle qa-teal">💸</div>
-          <div class="qa-label">O'tkazma</div>
+          <div class="qa-label" data-t="send">O'tkazma</div>
         </div>
         <div class="qa-item" onclick="openQRCamera()">
           <div class="qa-circle qa-green">📲</div>
-          <div class="qa-label">QR To'lov</div>
+          <div class="qa-label" data-t="qr">QR To'lov</div>
         </div>
         <div class="qa-item" onclick="showScreen('topup')">
           <div class="qa-circle qa-gold">💰</div>
-          <div class="qa-label">To'ldirish</div>
+          <div class="qa-label" data-t="topup">To'ldirish</div>
         </div>
         <div class="qa-item" onclick="showScreen('bills')">
           <div class="qa-circle qa-purple">🧾</div>
-          <div class="qa-label">To'lovlar</div>
+          <div class="qa-label" data-t="bills">To'lovlar</div>
         </div>
         <div class="qa-item" onclick="showScreen('cards')">
           <div class="qa-circle qa-teal">💳</div>
-          <div class="qa-label">Kartalar</div>
+          <div class="qa-label" data-t="cards">Kartalar</div>
         </div>
         <div class="qa-item" onclick="showNavTab('analytics')">
           <div class="qa-circle qa-green">📊</div>
-          <div class="qa-label">Analitika</div>
+          <div class="qa-label" data-t="analytics">Analitika</div>
         </div>
         <div class="qa-item" onclick="showScreen('security')">
           <div class="qa-circle qa-red">🛡️</div>
-          <div class="qa-label">Xavfsizlik</div>
+          <div class="qa-label" data-t="security">Xavfsizlik</div>
         </div>
         <div class="qa-item" onclick="showScreen('wearables')">
           <div class="qa-circle qa-purple">💍</div>
-          <div class="qa-label">Qurilma</div>
+          <div class="qa-label" data-t="device">Qurilma</div>
         </div>
         <div class="qa-item" onclick="showScreen('vaqf')">
           <div class="qa-circle qa-gold">🕌</div>
-          <div class="qa-label">VAQF</div>
+          <div class="qa-label" data-t="vaqf">VAQF</div>
         </div>
         <div class="qa-item" onclick="showScreen('mini-apps-screen')">
           <div class="qa-circle qa-teal">📱</div>
-          <div class="qa-label">Mini Apps</div>
+          <div class="qa-label" data-t="miniApps">Mini Apps</div>
         </div>
       </div>
     </div>
@@ -2055,9 +2143,9 @@ body.light-theme .receipt-row-label { color:#4A5568; }
       <div style="background:linear-gradient(135deg,#0a2a18,#0a1e2a);border:1px solid rgba(16,185,129,.25);border-radius:var(--r2);padding:16px;display:flex;align-items:center;gap:16px;cursor:pointer" onclick="showScreen('rewards')">
         <div style="font-size:32px">🎁</div>
         <div style="flex:1">
-          <div style="font-size:13px;font-weight:600;color:var(--emerald)">Cashback balansi</div>
+          <div style="font-size:13px;font-weight:600;color:var(--emerald)" data-t="cashback">Cashback balansi</div>
           <div style="font-family:var(--mono);font-size:20px;font-weight:700;margin-top:2px">48,500 UZS</div>
-          <div style="font-size:11px;color:var(--gray);margin-top:2px">Bu oy +12,200 UZS topildi</div>
+          <div style="font-size:11px;color:var(--gray);margin-top:2px" data-t="cashbackSub">Bu oy +12,200 UZS topildi</div>
         </div>
         <div style="color:var(--emerald)">→</div>
       </div>
@@ -2068,12 +2156,12 @@ body.light-theme .receipt-row-label { color:#4A5568; }
       <div style="background:linear-gradient(135deg,#0d1a3a,#0a1628);border:1px solid var(--border2);border-radius:var(--r2);padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer" onclick="showScreen('wearables')">
         <div style="font-size:28px;animation:glow 3s infinite">💍</div>
         <div style="flex:1">
-          <div style="font-size:13px;font-weight:600">SafePay Ring</div>
-          <div style="font-size:11px;color:var(--gray);margin-top:2px">Ulangan · 87% batareya</div>
-          <div style="font-size:11px;color:var(--emerald);margin-top:2px">● Faol</div>
+          <div style="font-size:13px;font-weight:600" data-t="deviceName">SafePay Ring</div>
+          <div style="font-size:11px;color:var(--gray);margin-top:2px" data-t="deviceStatus">Ulangan · 87% batareya</div>
+          <div style="font-size:11px;color:var(--emerald);margin-top:2px" data-t="deviceActive">● Faol</div>
         </div>
         <div>
-          <div class="pill pill-teal" style="font-size:9px">Ulangan</div>
+          <div class="pill pill-teal" style="font-size:9px" data-t="connected">Ulangan</div>
         </div>
       </div>
     </div>
@@ -2081,8 +2169,8 @@ body.light-theme .receipt-row-label { color:#4A5568; }
     <!-- Recent Transactions -->
     <div class="px a5" style="margin-bottom:20px">
       <div class="sec-hdr">
-        <div class="sec-title">Oxirgi tranzaksiyalar</div>
-        <div class="sec-link" onclick="showNavTab('activity')">Barchasi →</div>
+        <div class="sec-title" data-t="recentTx">Oxirgi tranzaksiyalar</div>
+        <div class="sec-link" onclick="showNavTab('activity')" data-t="seeAll">Barchasi →</div>
       </div>
       <div id="home-txs"></div>
     </div>
@@ -2090,8 +2178,8 @@ body.light-theme .receipt-row-label { color:#4A5568; }
     <!-- Mini Chart -->
     <div class="px a6" style="margin-bottom:20px">
       <div class="sec-hdr">
-        <div class="sec-title">Haftalik xarajatlar</div>
-        <div class="sec-link" onclick="showNavTab('analytics')">Batafsil →</div>
+        <div class="sec-title" data-t="weeklySpend">Haftalik xarajatlar</div>
+        <div class="sec-link" onclick="showNavTab('analytics')" data-t="seeAll">Batafsil →</div>
       </div>
       <div class="card" style="padding:16px">
         <div style="font-family:var(--mono);font-size:22px;font-weight:700;margin-bottom:4px">2,840,000 <span style="font-size:14px;color:var(--gray)">UZS</span></div>
@@ -2104,8 +2192,8 @@ body.light-theme .receipt-row-label { color:#4A5568; }
     <!-- Mini Apps on Home -->
     <div class="px" style="margin-bottom:20px">
       <div class="sh" style="padding:0;margin-bottom:12px">
-        <div class="sh-t">Mini Apps</div>
-        <div class="sh-a" onclick="showScreen('mini-apps-screen')">Barchasi</div>
+        <div class="sh-t" data-t="miniApps">Mini Apps</div>
+        <div class="sh-a" onclick="showScreen('mini-apps-screen')" data-t="seeAll">Barchasi</div>
       </div>
       <div class="mini-apps-grid" style="padding:0">
         <div class="mini-app-item" onclick="showScreen('wearables')">
@@ -2132,7 +2220,7 @@ body.light-theme .receipt-row-label { color:#4A5568; }
       <div style="background:linear-gradient(135deg,#0a2218,#0a1a28);border:1px solid rgba(16,185,129,.2);border-radius:var(--r2);padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer" onclick="showScreen('security')">
         <div style="width:46px;height:46px;border-radius:14px;background:rgba(16,185,129,.12);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">🛡️</div>
         <div style="flex:1">
-          <div style="font-size:13px;font-weight:600">Xavfsizlik holati</div>
+          <div style="font-size:13px;font-weight:600" data-t="securityStatus">Xavfsizlik holati</div>
           <div class="sec-status" style="margin-top:4px"><div class="dot dot-green"></div> <span style="color:var(--emerald)">Himoyalangan</span></div>
         </div>
         <div style="color:var(--gray)">→</div>
@@ -3175,27 +3263,27 @@ body.light-theme .receipt-row-label { color:#4A5568; }
 <nav id="bottom-nav" class="hidden">
   <div class="nav-tab active" id="tab-home" onclick="showNavTab('home')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    <span>Bosh sahifa</span>
+    <span data-t="home">Bosh sahifa</span>
     <div class="nav-dot"></div>
   </div>
   <div class="nav-tab" id="tab-payments" onclick="showNavTab('tolov-hub')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20"/></svg>
-    <span>To'lovlar</span>
+    <span data-t="payments">Toʻlovlar</span>
     <div class="nav-dot"></div>
   </div>
   <div class="nav-tab" id="tab-analytics" onclick="showNavTab('analytics')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20l4-8 4 4 4-6 4 4"/><path d="M3 20h18"/></svg>
-    <span>Analitika</span>
+    <span data-t="analytics">Analitika</span>
     <div class="nav-dot"></div>
   </div>
   <div class="nav-tab" id="tab-activity" onclick="showNavTab('activity')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-    <span>Faollik</span>
+    <span data-t="activity">Faollik</span>
     <div class="nav-dot"></div>
   </div>
   <div class="nav-tab" id="tab-profile" onclick="showNavTab('profile')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-    <span>Profil</span>
+    <span data-t="profile">Profil</span>
     <div class="nav-dot"></div>
   </div>
 </nav>
@@ -4068,6 +4156,17 @@ const LANGS = {
     vaqf:'Xayriya (VAQF)', miniApps:'Mini Ilovalar',
     settings:'Sozlamalar', logout:'Chiqish',
     notifications:'Bildirishnomalar',
+    thisMonth:'+3.2% bu oy',
+    primaryCard:'Asosiy karta',
+    active:'Faol',
+    connected:'Ulangan',
+    deviceName:'SafePay Ring',
+    deviceStatus:'Ulangan · 87% batareya',
+    deviceActive:'● Faol',
+    cashbackSub:'Bu oy +12,200 UZS topildi',
+    securityStatus:'Xavfsizlik holati',
+    receiptTitle:'Toʻlov cheki',
+    successTransfer:'Muvaffaqiyatli oʻtkazildi',
   },
   ru: {
     appName:'SafePay.uz', tagline:'БЕЗОПАСНО · БЫСТРО · ПРОСТО',
@@ -4105,6 +4204,17 @@ const LANGS = {
     vaqf:'Благотворительность (ВАКФ)', miniApps:'Мини Приложения',
     settings:'Настройки', logout:'Выйти',
     notifications:'Уведомления',
+    thisMonth:'+3.2% в этом месяце',
+    primaryCard:'Основная карта',
+    active:'Активна',
+    connected:'Подключено',
+    deviceName:'SafePay Ring',
+    deviceStatus:'Подключено · 87% батарея',
+    deviceActive:'● Активно',
+    cashbackSub:'В этом месяце +12,200 UZS',
+    securityStatus:'Состояние безопасности',
+    receiptTitle:'Чек об оплате',
+    successTransfer:'Успешно переведено',
   },
   en: {
     appName:'SafePay.uz', tagline:'SECURE · FAST · EASY',
@@ -4142,6 +4252,17 @@ const LANGS = {
     vaqf:'Charity (WAQF)', miniApps:'Mini Apps',
     settings:'Settings', logout:'Sign Out',
     notifications:'Notifications',
+    thisMonth:'+3.2% this month',
+    primaryCard:'Primary card',
+    active:'Active',
+    connected:'Connected',
+    deviceName:'SafePay Ring',
+    deviceStatus:'Connected · 87% battery',
+    deviceActive:'● Active',
+    cashbackSub:'This month +12,200 UZS earned',
+    securityStatus:'Security status',
+    receiptTitle:'Payment Receipt',
+    successTransfer:'Successfully transferred',
   }
 };
 
@@ -4156,26 +4277,52 @@ function setLang(lang) {
   currentLang = lang;
   localStorage.setItem('sp_lang', lang);
   applyLang();
-  showToast('🌐', lang === 'uz' ? "Oʻzbek tili" : lang === 'ru' ? 'Русский язык' : 'English');
-  // Close modal if open
+  updateLangChecks();
   closeModal('lang-modal');
+  const _langNames = { uz:'Oʻzbek tili tanlandi', ru:'Выбран русский язык', en:'English selected' };
+  showToast('🌐', _langNames[lang] || lang);
 }
 
 function applyLang() {
-  // Nav tabs
-  const navLabels = { home: t('home'), payments: t('payments'), analytics: t('analytics'), activity: t('activity'), profile: t('profile') };
-  Object.entries(navLabels).forEach(([id, lbl]) => {
-    const tab = document.getElementById('tab-' + id);
-    if (tab) { const span = tab.querySelector('span'); if (span) span.textContent = lbl; }
-  });
-  // Data attributes
+  const L = LANGS[currentLang];
+  if (!L) return;
+
+  // 1. ALL [data-t] elements — covers every labeled element
   document.querySelectorAll('[data-t]').forEach(el => {
     const key = el.getAttribute('data-t');
-    if (LANGS[currentLang][key]) el.textContent = LANGS[currentLang][key];
+    if (L[key] !== undefined) el.textContent = L[key];
   });
-  // Splash tagline
-  const tagEl = document.querySelector('.splash-tagline');
-  if (tagEl) tagEl.textContent = t('tagline');
+
+  // 2. Nav tab spans (both bottom navs)
+  const navMap = { home:'home', payments:'payments', analytics:'analytics', activity:'activity', profile:'profile' };
+  document.querySelectorAll('#bottom-nav .nav-tab, #phoneBotNav .ni').forEach(tab => {
+    const id = tab.dataset.nav || tab.dataset.n || tab.dataset.dn || '';
+    const key = navMap[id];
+    if (key) {
+      const span = tab.querySelector('span');
+      if (span) span.textContent = L[key] || span.textContent;
+    }
+  });
+
+  // 3. Screen titles with known patterns
+  const screenTitles = {
+    'Bosh sahifa': L.home, 'Home': L.home,
+    'Главная': L.home,
+  };
+
+  // 4. Splash tagline
+  document.querySelectorAll('.splash-tagline').forEach(el => el.textContent = L.tagline);
+
+  // 5. Auth screens
+  const loginTitleEl = document.querySelector('#login .auth-title');
+  if (loginTitleEl) loginTitleEl.textContent = L.loginTitle;
+  const loginSubEl = document.querySelector('#login .auth-subtitle');
+  if (loginSubEl) loginSubEl.textContent = L.loginSub;
+
+  // Button text update via data-t attributes only
+
+  // 7. HTML lang attribute
+  document.documentElement.lang = currentLang;
 }
 
 /* ══════════════════════════════════════════
@@ -4200,19 +4347,35 @@ function setTheme(theme) {
   currentTheme = theme;
   localStorage.setItem('sp_theme', theme);
   applyTheme();
-  showToast(theme === 'dark' ? '🌙' : '☀️', t(theme));
+  updateThemeChecks();
   closeModal('theme-modal');
+  showToast(theme === 'dark' ? '🌙' : '☀️', theme === 'dark' ? 'Tungi rejim' : 'Kunduzgi rejim');
 }
 
 function applyTheme() {
   const vars = currentTheme === 'dark' ? DARK_VARS : LIGHT_VARS;
   const root = document.documentElement;
+  // Apply ALL CSS variables to root element
   Object.entries(vars).forEach(([k, v]) => root.style.setProperty(k, v));
+  // Also force update body background directly
+  document.body.style.background = vars['--navy'];
+  document.body.style.color = vars['--white'];
+  // Update app-frame background
+  const appFrame = document.getElementById('app-frame');
+  if (appFrame) appFrame.style.background = vars['--navy'];
   // Update meta theme-color
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.content = currentTheme === 'dark' ? '#0A1628' : '#F0F4FF';
-  // Toggle body class for additional light overrides
+  // Toggle body class
   document.body.classList.toggle('light-theme', currentTheme === 'light');
+  // Force repaint on all active screens
+  document.querySelectorAll('.screen.active').forEach(el => {
+    el.style.background = vars['--navy'];
+  });
+  // Update all card backgrounds
+  document.querySelectorAll('.card,.list-group,.modal-sheet,.card-teal').forEach(el => {
+    el.style.background = '';  // let CSS vars take over
+  });
 }
 
 function toggleTheme() {
@@ -4242,6 +4405,10 @@ const NAV_TABS = { home:'home', payments:'tolov-hub', 'tolov-hub':'tolov-hub', a
 
 /* ── Show Screen ── */
 function showScreen(id) {
+  // Stop camera if leaving qr-camera
+  if (state.currentScreen === 'qr-camera' && id !== 'qr-camera') {
+    stopCamera();
+  }
   const prev = document.getElementById(state.currentScreen);
   const next = document.getElementById(id);
   if (!next || id === state.currentScreen) return;
@@ -4946,36 +5113,11 @@ function updateThemeChecks() {
   if (ol) ol.classList.toggle('active', !isDark);
 }
 
-const _origSetLang = setLang;
-function setLang(lang) {
-  currentLang = lang;
-  localStorage.setItem('sp_lang', lang);
-  applyLang();
-  updateLangChecks();
-  closeModal('lang-modal');
-  const names = { uz:"Oʻzbek tili tanlandi", ru:'Выбран русский язык', en:'English selected' };
-  showToast('🌐', names[lang]);
-}
+/* setLang merged above */
 
-const _origSetTheme = setTheme;
-function setTheme(theme) {
-  currentTheme = theme;
-  localStorage.setItem('sp_theme', theme);
-  applyTheme();
-  updateThemeChecks();
-  closeModal('theme-modal');
-  showToast(theme === 'dark' ? '🌙' : '☀️', theme === 'dark' ? 'Tungi rejim' : 'Kunduzgi rejim');
-}
+/* setTheme merged above */
 
-/* Stop camera when leaving qr-camera screen */
-const _origShowScreen = showScreen;
-function showScreen(id) {
-  // Stop camera if leaving qr-camera
-  if (state.currentScreen === 'qr-camera' && id !== 'qr-camera') {
-    stopCamera();
-  }
-  _origShowScreen(id);
-}
+/* showScreen camera stop merged into original */
 
 /* Also show receipt after transfer success */
 function showTransferReceipt(toName, amt) {
